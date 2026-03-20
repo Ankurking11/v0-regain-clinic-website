@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Clock, MessageCircle, CheckCircle, Send } from "lucide-react"
+import { Clock, MessageCircle, CheckCircle, Send, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -26,17 +26,106 @@ const services = [
   "General Consultation",
 ]
 
+// Available time slots: Mon-Fri, 4 PM to 6 PM (30 min each)
+const timeSlots = ["4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM"]
+
+// Google Apps Script Web App URL for saving appointments to Google Sheets
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbm-0Xr9mxvqggIvb37aiKHsMdwB6k2151S-gZ-SsklryqZ98rQ7beJPGHXo3vjTZ1/exec"
+
+function isWeekday(dateString: string): boolean {
+  if (!dateString) return false
+  const date = new Date(dateString)
+  const day = date.getDay()
+  return day >= 1 && day <= 5 // 1 = Monday, 5 = Friday
+}
+
+function getMinDate(): string {
+  const today = new Date()
+  return today.toISOString().split("T")[0]
+}
+
 export default function Appointment() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    service: "",
+    date: "",
+    time: "",
+    message: "",
+  })
+  const [availableSlots, setAvailableSlots] = useState<string[]>([])
+  const [selectedSlot, setSelectedSlot] = useState("")
+
+  // Load available slots when date changes (simulated - connect to real backend later)
+  useEffect(() => {
+    if (formData.date && isWeekday(formData.date)) {
+      // In production, fetch booked slots from backend/Google Sheets
+      // For now, all slots are available
+      setAvailableSlots(timeSlots)
+    } else {
+      setAvailableSlots([])
+    }
+  }, [formData.date])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.date || !isWeekday(formData.date)) {
+      alert("Please select a valid weekday (Monday-Friday)")
+      return
+    }
+
+    if (!selectedSlot) {
+      alert("Please select a time slot")
+      return
+    }
+
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+
+    const bookingData = {
+      ...formData,
+      time: selectedSlot,
+      timestamp: new Date().toISOString(),
+      status: "pending",
+    }
+
+    try {
+      // Prepare data for Google Sheets
+      const bookingPayload = {
+        name: bookingData.name,
+        phone: bookingData.phone,
+        email: bookingData.email,
+        service: bookingData.service,
+        date: bookingData.date,
+        time: bookingData.time,
+        message: bookingData.message,
+        timestamp: bookingData.timestamp,
+        status: bookingData.status
+      }
+
+      // Send to Google Apps Script Web App
+      await fetch(GOOGLE_APPS_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(bookingPayload),
+      })
+
+      console.log("Booking saved to Google Sheets:", bookingData)
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error("Error saving appointment:", error)
+      alert("Failed to submit appointment. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDate = e.target.value
+    setFormData(prev => ({ ...prev, date: newDate }))
+    setSelectedSlot("") // Reset selected slot when date changes
   }
 
   return (
@@ -159,6 +248,8 @@ export default function Appointment() {
                       placeholder="Your full name"
                       required
                       className="h-12"
+                      value={formData.name}
+                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                     />
                   </div>
                   <div className="space-y-2">
@@ -169,6 +260,8 @@ export default function Appointment() {
                       placeholder="+91 98765 43210"
                       required
                       className="h-12"
+                      value={formData.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                     />
                   </div>
                 </div>
@@ -180,12 +273,14 @@ export default function Appointment() {
                     type="email"
                     placeholder="your@email.com"
                     className="h-12"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="service">Service Required</Label>
-                  <Select required>
+                  <Select required onValueChange={(value) => setFormData(prev => ({ ...prev, service: value }))}>
                     <SelectTrigger className="h-12">
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
@@ -201,8 +296,52 @@ export default function Appointment() {
 
                 <div className="space-y-2">
                   <Label htmlFor="date">Preferred Date</Label>
-                  <Input id="date" type="date" required className="h-12" />
+                  <Input
+                    id="date"
+                    type="date"
+                    required
+                    className="h-12"
+                    min={getMinDate()}
+                    value={formData.date}
+                    onChange={handleDateChange}
+                  />
+                  {formData.date && !isWeekday(formData.date) && (
+                    <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      Please select Monday-Friday only
+                    </p>
+                  )}
                 </div>
+
+                {/* Time Slot Selection - Only shows when valid weekday is selected */}
+                {formData.date && isWeekday(formData.date) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-2"
+                  >
+                    <Label>Available Time Slots</Label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {availableSlots.map((slot) => (
+                        <Button
+                          key={slot}
+                          type="button"
+                          variant={selectedSlot === slot ? "default" : "outline"}
+                          className={selectedSlot === slot
+                            ? "bg-teal-600 text-white"
+                            : "border-teal-200 hover:border-teal-400"
+                          }
+                          onClick={() => setSelectedSlot(slot)}
+                        >
+                          {slot}
+                        </Button>
+                      ))}
+                    </div>
+                    <p className="text-xs text-slate-500">
+                      Slots: Mon-Fri, 4:00 PM - 6:00 PM (30 min each)
+                    </p>
+                  </motion.div>
+                )}
 
                 <div className="space-y-2">
                   <Label htmlFor="message">Additional Message</Label>
@@ -210,12 +349,14 @@ export default function Appointment() {
                     id="message"
                     placeholder="Tell us about your condition or any specific requirements..."
                     rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !formData.name || !formData.phone || !formData.service || !formData.date || !isWeekday(formData.date) || !selectedSlot}
                   className="w-full h-12 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white text-lg"
                 >
                   {isSubmitting ? (
