@@ -8,13 +8,13 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Address",
-    content: ["Sector 41, Noida", "Siliguri, West Bengal 201303"],
+    content: ["Hakimpara, Near City Centre", "Siliguri, West Bengal 734001"],
   },
   {
     icon: Phone,
     title: "Phone",
-    content: ["+91 8369902721", "+91 8292759774"],
-    links: ["tel:+918369902721", "tel:+918292759774"],
+    content: ["+91 98765 43210", "+91 98765 43211"],
+    links: ["tel:+919876543210", "tel:+919876543211"],
   },
   {
     icon: Mail,
