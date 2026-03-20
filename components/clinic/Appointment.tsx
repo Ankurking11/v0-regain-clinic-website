@@ -32,6 +32,11 @@ const timeSlots = ["4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM"]
 // Google Apps Script Web App URL for saving appointments to Google Sheets
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbm-0Xr9mxvqggIvb37aiKHsMdwB6k2151S-gZ-SsklryqZ98rQ7beJPGHXo3vjTZ1/exec"
 
+// Helper to format date as YYYY-MM-DD for API comparison
+function formatDateForAPI(dateString: string): string {
+  return dateString
+}
+
 function isWeekday(dateString: string): boolean {
   if (!dateString) return false
   const date = new Date(dateString)
@@ -47,6 +52,7 @@ function getMinDate(): string {
 export default function Appointment() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -57,15 +63,37 @@ export default function Appointment() {
     message: "",
   })
   const [availableSlots, setAvailableSlots] = useState<string[]>([])
+  const [bookedSlots, setBookedSlots] = useState<string[]>([])
   const [selectedSlot, setSelectedSlot] = useState("")
 
-  // Load available slots when date changes (simulated - connect to real backend later)
+  // Fetch booked slots from Google Sheets when date changes
   useEffect(() => {
     if (formData.date && isWeekday(formData.date)) {
-      // In production, fetch booked slots from backend/Google Sheets
-      // For now, all slots are available
-      setAvailableSlots(timeSlots)
+      setIsLoadingSlots(true)
+
+      // Fetch booked slots for the selected date from Google Sheets
+      fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=getBookedSlots&date=${formData.date}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.slots) {
+            setBookedSlots(data.slots)
+            // Available slots = all slots minus booked ones
+            setAvailableSlots(timeSlots.filter(slot => !data.slots.includes(slot)))
+          } else {
+            setBookedSlots([])
+            setAvailableSlots(timeSlots)
+          }
+        })
+        .catch(err => {
+          console.error("Error fetching booked slots:", err)
+          setBookedSlots([])
+          setAvailableSlots(timeSlots)
+        })
+        .finally(() => {
+          setIsLoadingSlots(false)
+        })
     } else {
+      setBookedSlots([])
       setAvailableSlots([])
     }
   }, [formData.date])
@@ -80,6 +108,16 @@ export default function Appointment() {
 
     if (!selectedSlot) {
       alert("Please select a time slot")
+      return
+    }
+
+    // Double-check slot is not booked (in case of race condition)
+    if (bookedSlots.includes(selectedSlot)) {
+      alert("This time slot was just booked by someone else. Please select another slot.")
+      setSelectedSlot("")
+      // Refresh slots
+      setBookedSlots([])
+      setAvailableSlots([])
       return
     }
 
@@ -321,25 +359,60 @@ export default function Appointment() {
                     className="space-y-2"
                   >
                     <Label>Available Time Slots</Label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {availableSlots.map((slot) => (
-                        <Button
-                          key={slot}
-                          type="button"
-                          variant={selectedSlot === slot ? "default" : "outline"}
-                          className={selectedSlot === slot
-                            ? "bg-teal-600 text-white"
-                            : "border-teal-200 hover:border-teal-400"
-                          }
-                          onClick={() => setSelectedSlot(slot)}
-                        >
-                          {slot}
-                        </Button>
-                      ))}
-                    </div>
-                    <p className="text-xs text-slate-500">
-                      Slots: Mon-Fri, 4:00 PM - 6:00 PM (30 min each)
-                    </p>
+                    {isLoadingSlots ? (
+                      <div className="flex items-center gap-2 text-slate-500">
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Checking availability...
+                      </div>
+                    ) : (
+                      <>
+                        <div className="grid grid-cols-3 gap-2">
+                          {timeSlots.map((slot) => {
+                            const isBooked = bookedSlots.includes(slot)
+                            const isSelected = selectedSlot === slot
+
+                            return (
+                              <Button
+                                key={slot}
+                                type="button"
+                                disabled={isBooked}
+                                variant={isSelected ? "default" : "outline"}
+                                className={isBooked
+                                  ? "bg-slate-100 text-slate-400 cursor-not-allowed border-slate-200"
+                                  : isSelected
+                                    ? "bg-teal-600 text-white"
+                                    : "border-teal-200 hover:border-teal-400"
+                                }
+                                onClick={() => !isBooked && setSelectedSlot(slot)}
+                              >
+                                {slot}
+                                {isBooked && (
+                                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" title="Booked" />
+                                )}
+                              </Button>
+                            )
+                          })}
+                        </div>
+                        <div className="flex items-center gap-4 text-xs">
+                          <p className="text-slate-500">
+                            Slots: Mon-Fri, 4:00 PM - 6:00 PM (30 min each)
+                          </p>
+                          <div className="flex items-center gap-1">
+                            <span className="w-3 h-3 bg-red-500 rounded-full" />
+                            <span className="text-slate-600">Booked</span>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {availableSlots.length === 0 && !isLoadingSlots && (
+                      <p className="text-sm text-amber-600 flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        All slots are booked for this date. Please select another date.
+                      </p>
+                    )}
                   </motion.div>
                 )}
 
