@@ -81,9 +81,13 @@ export default function Appointment() {
 
       // Fetch booked slots for the selected date and branch from Google Sheets
       fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=getBookedSlots&date=${formData.date}&branch=${formData.branch}`)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok')
+          return res.json()
+        })
         .then(data => {
-          if (data.slots) {
+          console.log('Fetched booked slots:', data)
+          if (data.slots && Array.isArray(data.slots)) {
             setBookedSlots(data.slots)
             // Available slots = all slots minus booked ones
             setAvailableSlots(timeSlots.filter(slot => !data.slots.includes(slot)))
@@ -93,7 +97,7 @@ export default function Appointment() {
           }
         })
         .catch(err => {
-          console.error("Error fetching booked slots:", err)
+          console.error('Error fetching booked slots:', err)
           setBookedSlots([])
           setAvailableSlots(timeSlots)
         })
@@ -158,11 +162,20 @@ export default function Appointment() {
         status: bookingData.status
       }
 
+      console.log('Sending booking to Google Sheets:', bookingPayload)
+
       // Send to Google Apps Script Web App
-      await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(bookingPayload),
       })
+
+      console.log('Google Sheets response:', response)
+      const result = await response.json()
+      console.log('Booking result:', result)
 
       console.log("Booking saved to Google Sheets:", bookingData)
       setIsSubmitted(true)
