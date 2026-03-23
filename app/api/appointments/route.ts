@@ -2,6 +2,42 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbm-0Xr9mxvqggIvb37aiKHsMdwB6k2151S-gZ-SsklryqZ98rQ7beJPGHXo3vjTZ1/exec"
 
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams
+    const action = searchParams.get('action')
+    const date = searchParams.get('date')
+    const branch = searchParams.get('branch')
+
+    if (action === 'getBookedSlots' && date && branch) {
+      // Fetch booked slots from Google Apps Script
+      const url = `${GOOGLE_APPS_SCRIPT_URL}?action=getBookedSlots&date=${date}&branch=${branch}`
+      console.log('[v0] Fetching booked slots from:', url)
+
+      const response = await fetch(url, {
+        method: 'GET',
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch booked slots')
+      }
+
+      const data = await response.json()
+      console.log('[v0] Booked slots response:', data)
+
+      return NextResponse.json(data)
+    }
+
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
+  } catch (error) {
+    console.error('[v0] Error fetching booked slots:', error)
+    return NextResponse.json(
+      { error: 'Failed to fetch booked slots', details: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    )
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
