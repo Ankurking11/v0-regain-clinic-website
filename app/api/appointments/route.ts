@@ -6,44 +6,41 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    console.log('[API] Received appointment booking:', body)
+    console.log('[v0] Received appointment booking:', body)
 
     // Validate required fields
     if (!body.name || !body.phone || !body.branch || !body.date || !body.time) {
+      console.error('[v0] Missing required fields:', body)
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
-    // Send to Google Apps Script using URLSearchParams to avoid CORS preflight
-    console.log('[API] Sending to Google Apps Script:', GOOGLE_APPS_SCRIPT_URL)
+    // Send to Google Apps Script as JSON (server-to-server, no CORS issues)
+    console.log('[v0] Sending to Google Apps Script:', GOOGLE_APPS_SCRIPT_URL)
     
-    // Convert JSON to FormData to avoid CORS preflight with application/json
-    const formData = new URLSearchParams()
-    Object.entries(body).forEach(([key, value]) => {
-      formData.append(key, String(value))
-    })
-
     const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
     })
 
-    console.log('[API] Google Sheets response status:', response.status)
-    console.log('[API] Google Sheets response ok:', response.ok)
+    console.log('[v0] Google Sheets response status:', response.status)
 
     // Try to read response
     let responseText = ''
     try {
       responseText = await response.text()
-      console.log('[API] Google Sheets response text:', responseText)
+      console.log('[v0] Google Sheets response:', responseText)
     } catch (e) {
-      console.log('[API] Could not read response:', e)
+      console.log('[v0] Could not read response:', e)
     }
 
-    // Even if we can't read the response, Google Apps Script likely processed it
-    console.log('[API] Appointment submitted to Google Sheets')
+    // Google Apps Script should have processed the request
+    console.log('[v0] Appointment submitted to Google Sheets')
     return NextResponse.json(
       { 
         success: true, 
@@ -52,7 +49,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
-    console.error('[API] Error processing appointment:', error)
+    console.error('[v0] Error processing appointment:', error)
     return NextResponse.json(
       {
         error: 'Failed to process appointment request',
