@@ -79,8 +79,8 @@ export default function Appointment() {
     if (formData.date && formData.branch && isWeekday(formData.date)) {
       setIsLoadingSlots(true)
 
-      // Fetch booked slots for the selected date and branch from Google Sheets
-      fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=getBookedSlots&date=${formData.date}&branch=${formData.branch}`)
+      // Fetch booked slots for the selected date and branch from our API
+      fetch(`/api/appointments?action=getBookedSlots&date=${formData.date}&branch=${formData.branch}`)
         .then(res => {
           if (!res.ok) throw new Error('Network response was not ok')
           return res.json()
