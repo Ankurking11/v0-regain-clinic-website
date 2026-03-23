@@ -148,7 +148,7 @@ export default function Appointment() {
     }
 
     try {
-      // Prepare data for Google Sheets
+      // Prepare data for API
       const bookingPayload = {
         branch: bookingData.branch,
         name: bookingData.name,
@@ -162,10 +162,10 @@ export default function Appointment() {
         status: bookingData.status
       }
 
-      console.log('Sending booking to Google Sheets:', bookingPayload)
+      console.log('[v0] Sending booking to API:', bookingPayload)
 
-      // Send to Google Apps Script Web App
-      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      // Send to our API endpoint
+      const response = await fetch('/api/appointments', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -173,14 +173,18 @@ export default function Appointment() {
         body: JSON.stringify(bookingPayload),
       })
 
-      console.log('Google Sheets response:', response)
+      console.log('[v0] API response status:', response.status)
       const result = await response.json()
-      console.log('Booking result:', result)
+      console.log('[v0] API result:', result)
 
-      console.log("Booking saved to Google Sheets:", bookingData)
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit appointment')
+      }
+
+      console.log("[v0] Booking saved successfully:", bookingData)
       setIsSubmitted(true)
     } catch (error) {
-      console.error("Error saving appointment:", error)
+      console.error("[v0] Error saving appointment:", error)
       alert("Failed to submit appointment. Please try again.")
     } finally {
       setIsSubmitting(false)
