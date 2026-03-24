@@ -17,18 +17,24 @@ import {
 } from "lucide-react"
 
 const facilities = [
-  { icon: Zap, name: "Electrotherapy Units" },
   { icon: Radio, name: "Ultrasound Therapy" },
-  { icon: Magnet, name: "Magnetotherapy" },
-  { icon: Thermometer, name: "Heat & Cold Therapy" },
-  { icon: Footprints, name: "Gait Training" },
-  { icon: ArrowDownUp, name: "Traction Units" },
-  { icon: Dumbbell, name: "Exercise Equipment" },
-  { icon: MonitorSpeaker, name: "Biofeedback" },
-  { icon: Accessibility, name: "Accessibility" },
-  { icon: ClipboardCheck, name: "Assessment Tools" },
-  { icon: Heart, name: "Cardiac Rehab" },
+  { icon: Magnet, name: "IFT" },
+  { icon: Zap, name: "TENS" },
   { icon: Sparkles, name: "Laser Therapy" },
+  { icon: Thermometer, name: "Shockwave Therapy" },
+  { icon: Thermometer, name: "SWD" },
+  { icon: ArrowDownUp, name: "Electronic Traction" },
+  { icon: Zap, name: "Faradic & Galvanic" },
+  { icon: MonitorSpeaker, name: "Russian Current" },
+  { icon: Heart, name: "Cryotherapy (Ice)" },
+  { icon: Dumbbell, name: "Deep Heat Therapy" },
+  { icon: Accessibility, name: "Manual Techniques" },
+  { icon: ClipboardCheck, name: "Dry Needling" },
+  { icon: Heart, name: "Deep Tissue Massage" },
+  { icon: Footprints, name: "Kinesio Taping" },
+  { icon: Dumbbell, name: "Exercise Therapy" },
+  { icon: Footprints, name: "Gait & Balance Training" },
+  { icon: MonitorSpeaker, name: "Biofeedback" },
 ]
 
 export default function Facilities() {

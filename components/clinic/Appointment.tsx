@@ -28,27 +28,75 @@ const services = [
 
 // Clinic branches
 const branches = [
-  { id: "downtown", name: "Downtown Clinic" },
-  { id: "westside", name: "Westside Clinic" },
+  { id: "babupara", name: "Babupara" },
+  { id: "shivmandir", name: "Shivmandir" },
 ]
 
-// Available time slots: Mon-Fri, 4 PM to 6 PM (30 min each)
-const timeSlots = ["4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM"]
+// Branch-specific schedule: which days and time slots
+const branchSchedule: Record<string, { days: number[], slots: string[] }> = {
+  babupara: {
+    days: [1, 2, 4, 6], // Mon=1, Tue=2, Thu=4, Sat=6
+    slots: {
+      // Monday: 4pm-6pm
+      1: ["4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM"],
+      // Tuesday, Thursday, Saturday: 9am-10am
+      2: ["9:00 AM", "9:30 AM"],
+      4: ["9:00 AM", "9:30 AM"],
+      6: ["9:00 AM", "9:30 AM"],
+    }
+  },
+  shivmandir: {
+    days: [3, 6], // Wed=3, Sat=6
+    slots: {
+      // Wednesday, Saturday: 4pm-5pm
+      3: ["4:00 PM", "4:30 PM"],
+      6: ["4:00 PM", "4:30 PM"],
+    }
+  }
+}
+
+// Get available time slots for a branch and day of week
+function getTimeSlotsForDay(branchId: string, dayOfWeek: number): string[] {
+  const schedule = branchSchedule[branchId]
+  if (!schedule || !schedule.days.includes(dayOfWeek)) {
+    return []
+  }
+  return schedule.slots[dayOfWeek] || []
+}
+
+// Check if branch is open on a given day
+function isBranchOpen(branchId: string, dayOfWeek: number): boolean {
+  const schedule = branchSchedule[branchId]
+  return schedule ? schedule.days.includes(dayOfWeek) : false
+}
+
+// Get a label for the time slots based on branch and day
+function getDaySlotLabel(branchId: string, dayOfWeek: number): string {
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const dayName = dayNames[dayOfWeek] || ''
+  return dayName
+}
 
 // Google Apps Script Web App URL for saving appointments to Google Sheets
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9lxEwoviV5aXpdsYf4hO92yYf5bHhS75ixuR1SvONrfrqNbMPiZTauqayqZgst4wD/exec"
 
 // Branch display names for UI
 const branchNames: Record<string, string> = {
-  downtown: "Downtown Clinic",
-  westside: "Westside Clinic",
+  babupara: "Babupara",
+  shivmandir: "Shivmandir",
 }
 
 function isWeekday(dateString: string): boolean {
   if (!dateString) return false
   const date = new Date(dateString)
   const day = date.getDay()
-  return day >= 1 && day <= 5 // 1 = Monday, 5 = Friday
+  return day >= 1 && day <= 6 // 1 = Monday, 6 = Saturday
+}
+
+// Get day of week from date string (0 = Sunday, 1 = Monday, etc.)
+function getDayOfWeek(dateString: string): number {
+  const date = new Date(dateString)
+  return date.getDay()
 }
 
 function getMinDate(): string {
@@ -79,6 +127,18 @@ export default function Appointment() {
     if (formData.date && formData.branch && isWeekday(formData.date)) {
       setIsLoadingSlots(true)
 
+      // Get time slots for this branch on this day
+      const dayOfWeek = getDayOfWeek(formData.date)
+      const todaySlots = getTimeSlotsForDay(formData.branch, dayOfWeek)
+
+      // If branch is not open on this day, clear slots
+      if (todaySlots.length === 0) {
+        setBookedSlots([])
+        setAvailableSlots([])
+        setIsLoadingSlots(false)
+        return
+      }
+
       // Fetch booked slots for the selected date and branch from our API
       fetch(`/api/appointments?action=getBookedSlots&date=${formData.date}&branch=${formData.branch}`)
         .then(res => {
@@ -89,17 +149,17 @@ export default function Appointment() {
           console.log('Fetched booked slots:', data)
           if (data.slots && Array.isArray(data.slots)) {
             setBookedSlots(data.slots)
-            // Available slots = all slots minus booked ones
-            setAvailableSlots(timeSlots.filter(slot => !data.slots.includes(slot)))
+            // Available slots = branch's slots for this day minus booked ones
+            setAvailableSlots(todaySlots.filter(slot => !data.slots.includes(slot)))
           } else {
             setBookedSlots([])
-            setAvailableSlots(timeSlots)
+            setAvailableSlots(todaySlots)
           }
         })
         .catch(err => {
           console.error('Error fetching booked slots:', err)
           setBookedSlots([])
-          setAvailableSlots(timeSlots)
+          setAvailableSlots(todaySlots)
         })
         .finally(() => {
           setIsLoadingSlots(false)
@@ -119,7 +179,14 @@ export default function Appointment() {
     }
 
     if (!formData.date || !isWeekday(formData.date)) {
-      alert("Please select a valid weekday (Monday-Friday)")
+      alert("Please select a valid day when the clinic is open")
+      return
+    }
+
+    // Check if branch is open on selected day
+    const selectedDay = getDayOfWeek(formData.date)
+    if (!isBranchOpen(formData.branch, selectedDay)) {
+      alert("The selected branch is not open on this day. Please select another date.")
       return
     }
 
@@ -394,7 +461,13 @@ export default function Appointment() {
                   {formData.date && !isWeekday(formData.date) && (
                     <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
-                      Please select Monday-Friday only
+                      Clinic is closed on this day. Please select Mon-Sat.
+                    </p>
+                  )}
+                  {formData.date && isWeekday(formData.date) && formData.branch && !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) && (
+                    <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {branchNames[formData.branch]} is closed on this day. Please select another date.
                     </p>
                   )}
                 </div>
@@ -432,48 +505,62 @@ export default function Appointment() {
                           </div>
                         ) : (
                           <>
-                            <div className="grid grid-cols-3 gap-2">
-                              {timeSlots.map((slot) => {
-                                const isBooked = bookedSlots.includes(slot)
-                                const isSelected = selectedSlot === slot
-
-                                return (
-                                  <Button
-                                    key={slot}
-                                    type="button"
-                                    disabled={isBooked}
-                                    variant={isSelected ? "default" : "outline"}
-                                    className={isBooked
-                                      ? "bg-slate-100 text-slate-400 cursor-not-allowed border-slate-200"
-                                      : isSelected
-                                        ? "bg-teal-600 text-white"
-                                        : "border-teal-200 hover:border-teal-400"
-                                    }
-                                    onClick={() => !isBooked && setSelectedSlot(slot)}
-                                  >
-                                    {slot}
-                                    {isBooked && (
-                                      <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" title="Booked" />
-                                    )}
-                                  </Button>
-                                )
-                              })}
-                            </div>
-                            <div className="flex items-center gap-4 text-xs">
-                              <p className="text-slate-500">
-                                Slots: Mon-Fri, 4:00 PM - 6:00 PM (30 min each)
+                            {/* Show closed message if branch not open on this day */}
+                            {formData.date && !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) ? (
+                              <p className="text-sm text-amber-600 flex items-center gap-2">
+                                <Calendar className="w-4 h-4" />
+                                {branchNames[formData.branch]} is closed on this day. Please select another date.
                               </p>
-                              <div className="flex items-center gap-1">
-                                <span className="w-3 h-3 bg-red-500 rounded-full" />
-                                <span className="text-slate-600">Booked</span>
-                              </div>
-                            </div>
+                            ) : (
+                              <>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                  {availableSlots.map((slot) => {
+                                    const isBooked = bookedSlots.includes(slot)
+                                    const isSelected = selectedSlot === slot
+
+                                    return (
+                                      <Button
+                                        key={slot}
+                                        type="button"
+                                        disabled={isBooked}
+                                        variant={isSelected ? "default" : "outline"}
+                                        className={isBooked
+                                          ? "bg-slate-100 text-slate-400 cursor-not-allowed border-slate-200"
+                                          : isSelected
+                                            ? "bg-teal-600 text-white"
+                                            : "border-teal-200 hover:border-teal-400"
+                                        }
+                                        onClick={() => !isBooked && setSelectedSlot(slot)}
+                                      >
+                                        {slot}
+                                        {isBooked && (
+                                          <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" title="Booked" />
+                                        )}
+                                      </Button>
+                                    )
+                                  })}
+                                </div>
+                                <div className="flex items-center gap-4 text-xs">
+                                  <p className="text-slate-500">
+                                    {formData.date && (
+                                      <span>
+                                        {branchNames[formData.branch]} - {getDaySlotLabel(formData.branch, getDayOfWeek(formData.date))}
+                                      </span>
+                                    )}
+                                  </p>
+                                  <div className="flex items-center gap-1">
+                                    <span className="w-3 h-3 bg-red-500 rounded-full" />
+                                    <span className="text-slate-600">Booked</span>
+                                  </div>
+                                </div>
+                              </>
+                            )}
                           </>
                         )}
-                        {availableSlots.length === 0 && !isLoadingSlots && formData.branch && (
+                        {availableSlots.length === 0 && !isLoadingSlots && formData.date && isBranchOpen(formData.branch, getDayOfWeek(formData.date)) && (
                           <p className="text-sm text-amber-600 flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
-                            All slots are booked for this date. Please select another date.
+                            All slots are booked. Please select another date.
                           </p>
                         )}
                       </>
@@ -494,7 +581,7 @@ export default function Appointment() {
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !formData.branch || !formData.name || !formData.phone || !formData.service || !formData.date || !isWeekday(formData.date) || !selectedSlot}
+                  disabled={isSubmitting || !formData.branch || !formData.name || !formData.phone || !formData.service || !formData.date || !isWeekday(formData.date) || !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) || !selectedSlot}
                   className="w-full h-12 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white text-lg"
                 >
                   {isSubmitting ? (

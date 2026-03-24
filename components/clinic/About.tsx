@@ -7,23 +7,23 @@ import Image from "next/image"
 const credentials = [
   {
     icon: GraduationCap,
-    title: "BPT Degree",
-    description: "Bachelor of Physiotherapy",
+    title: "PT – RGUHS (Bengaluru)",
+    description: "Regd No: 03T1437",
   },
   {
     icon: Brain,
-    title: "Master's in Neurological Rehabilitation",
-    description: "Advanced Neuro Specialization",
+    title: "GM – Prechtl (Austria)",
+    description: "Germany Certified",
   },
   {
     icon: FileCheck,
-    title: "State Council Registration",
-    description: "West Bengal Registered",
+    title: "FIMT – Bengaluru",
+    description: "Fellowship Certified",
   },
   {
     icon: Clock,
-    title: "15+ Years Clinical Experience",
-    description: "Extensive Practice",
+    title: "NCAHP ID: 99-8238-7328-7350",
+    description: "Registered Practitioner",
   },
 ]
 
@@ -81,7 +81,7 @@ export default function About() {
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-serif">
               Dr. Sanjeeb Bhattacharjee
               <span className="block text-xl lg:text-2xl font-normal text-slate-600 mt-2">
-                (PT) — Consultant Physiotherapist
+                (P.T.) — Consultant Physiotherapist
               </span>
             </h2>
 

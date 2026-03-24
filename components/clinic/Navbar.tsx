@@ -43,7 +43,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="#" className="flex flex-col">
               <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                RegainClinic
+                ReGain MS Clinic
               </span>
               <span className="text-xs text-slate-500 tracking-wider">
                 Touching Mobility
@@ -66,11 +66,11 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
               <a
-                href="tel:+919876543210"
+                href="tel:+918250588279"
                 className="flex items-center gap-2 text-slate-700 hover:text-teal-600 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span className="font-medium">+91 98765 43210</span>
+                <span className="font-medium">+91 82505 88279</span>
               </a>
               <Button
                 asChild
@@ -113,7 +113,7 @@ export default function Navbar() {
               <div className="flex justify-between items-center mb-8">
                 <div className="flex flex-col">
                   <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                    RegainClinic
+                    ReGain MS Clinic
                   </span>
                   <span className="text-xs text-slate-500">
                     Touching Mobility
@@ -149,12 +149,12 @@ export default function Navbar() {
 
               <div className="mt-auto space-y-4">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918250588279"
                   className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg"
                 >
                   <Phone className="w-5 h-5 text-teal-600" />
                   <span className="font-medium text-slate-700">
-                    +91 98765 43210
+                    +91 82505 88279
                   </span>
                 </a>
                 <Button
