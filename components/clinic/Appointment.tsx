@@ -36,7 +36,7 @@ const branches = [
 const timeSlots = ["4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM"]
 
 // Google Apps Script Web App URL for saving appointments to Google Sheets
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbm-0Xr9mxvqggIvb37aiKHsMdwB6k2151S-gZ-SsklryqZ98rQ7beJPGHXo3vjTZ1/exec"
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9lxEwoviV5aXpdsYf4hO92yYf5bHhS75ixuR1SvONrfrqNbMPiZTauqayqZgst4wD/exec"
 
 // Branch display names for UI
 const branchNames: Record<string, string> = {
