@@ -45,7 +45,11 @@ function doGet(e) {
         // Match date AND branch (case-insensitive for branch)
         if (rowDateStr.indexOf(dateNormalized) !== -1 || rowDateStr === dateNormalized) {
           if (branchNormalized === branchParam) {
-            bookedSlots.push(rowTime);
+            // Format time - handle both Date objects (serial) and strings
+            var formattedTime = formatTime(rowTime);
+            if (formattedTime) {
+              bookedSlots.push(formattedTime);
+            }
           }
         }
       }
@@ -120,5 +124,84 @@ function formatDate(dateObj) {
     return year + "-" + month + "-" + day;
   } catch (e) {
     return String(dateObj);
+  }
+}
+
+/**
+ * Helper: Format time - handles Google Sheets time values (strings, Date objects, or serial numbers)
+ * Returns a time string like "4:00 PM"
+ */
+function formatTime(timeValue) {
+  try {
+    // Handle string values (e.g., "4:00 PM")
+    if (typeof timeValue === 'string') {
+      var trimmed = timeValue.trim();
+      if (trimmed.match(/AM|PM/i) || trimmed.match(/^\d{1,2}:\d{2}/)) {
+        return normalizeTimeString(trimmed);
+      }
+      return trimmed;
+    }
+
+    // Handle Date objects - check constructor name or toString()
+    if (timeValue && timeValue.constructor && timeValue.constructor.name === 'Date') {
+      return formatDateObj(timeValue);
+    }
+
+    // Alternative check: if it has getHours method, it's a Date
+    if (timeValue && typeof timeValue.getHours === 'function') {
+      return formatDateObj(timeValue);
+    }
+
+    // Handle numbers (time serial - fractional days)
+    if (typeof timeValue === 'number') {
+      // Convert serial to Date
+      var d = new Date(1899, 11, 30); // Base date for Excel/GSheets serial
+      d.setTime(d.getTime() + Math.round(timeValue * 24 * 60 * 60 * 1000));
+      return formatDateObj(d);
+    }
+
+    return String(timeValue);
+  } catch (e) {
+    return String(timeValue);
+  }
+}
+
+/**
+ * Format a Date object to "H:MM AM/PM" format
+ */
+function formatDateObj(d) {
+  try {
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    return hours + ':' + minutes + ' ' + ampm;
+  } catch (e) {
+    return '';
+  }
+}
+
+/**
+ * Normalize time strings to "H:MM AM/PM" format
+ */
+function normalizeTimeString(timeStr) {
+  try {
+    // Handle "4:00 PM" format
+    var match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (match) {
+      var hours = parseInt(match[1], 10);
+      var minutes = match[2];
+      var ampm = match[3].toUpperCase();
+      // Convert 12-hour to 24-hour for consistency
+      if (ampm === 'PM' && hours !== 12) hours += 12;
+      if (ampm === 'AM' && hours === 12) hours = 0;
+      var d = new Date(2000, 0, 1, hours, minutes);
+      return formatDateObj(d);
+    }
+    return timeStr;
+  } catch (e) {
+    return timeStr;
   }
 }
