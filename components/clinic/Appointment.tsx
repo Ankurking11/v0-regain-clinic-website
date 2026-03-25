@@ -28,8 +28,8 @@ const services = [
 
 // Clinic branches
 const branches = [
-  { id: "babupara", name: "Babupara" },
-  { id: "shivmandir", name: "Shivmandir" },
+  { id: "babupara", name: "Clinic 1" },
+  { id: "shivmandir", name: "Clinic 2" },
 ]
 
 // Branch-specific schedule: which days and time slots
@@ -82,8 +82,8 @@ const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9lxEwo
 
 // Branch display names for UI
 const branchNames: Record<string, string> = {
-  babupara: "Babupara",
-  shivmandir: "Shivmandir",
+  babupara: "Clinic 1",
+  shivmandir: "Clinic 2",
 }
 
 function isWeekday(dateString: string): boolean {
@@ -378,7 +378,7 @@ export default function Appointment() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Branch Selection */}
                 <div className="space-y-2">
-                  <Label htmlFor="branch">Clinic Branch</Label>
+                  <Label htmlFor="branch">Clinic</Label>
                   <Select required onValueChange={(value) => setFormData(prev => ({ ...prev, branch: value }))}>
                     <SelectTrigger className="h-12">
                       <SelectValue placeholder="Select a branch" />
