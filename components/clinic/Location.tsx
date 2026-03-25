@@ -7,25 +7,25 @@ import { Button } from "@/components/ui/button"
 const contactInfo = [
   {
     icon: MapPin,
-    title: "Address",
-    content: ["Hakimpara, Near City Centre", "Siliguri, West Bengal 734001"],
+    title: "Clinic 1 Address",
+    content: ["Opp Lane, Daffodil School,", "Babupura Main Road, Siliguri"],
+  },
+  {
+    icon: MapPin,
+    title: "Clinic 2 Address",
+    content: ["Shiv Mandir, Siliguri"],
   },
   {
     icon: Phone,
     title: "Phone",
-    content: ["+91 98765 43210", "+91 98765 43211"],
-    links: ["tel:+919876543210", "tel:+919876543211"],
+    content: ["+91 82505 88279", "+91 86375 69844"],
+    links: ["tel:+918250588279", "tel:+918637569844"],
   },
   {
     icon: Mail,
     title: "Email",
-    content: ["info@regainclinic.com"],
-    links: ["mailto:info@regainclinic.com"],
-  },
-  {
-    icon: Clock,
-    title: "Working Hours",
-    content: ["Mon – Sat: 9:00 AM – 8:00 PM", "Sunday: By Appointment"],
+    content: ["sanjeebbhattacharjee0@gmail.com"],
+    links: ["mailto:sanjeebbhattacharjee0@gmail.com"],
   },
 ]
 
@@ -113,7 +113,7 @@ export default function Location() {
                 <MapPin className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900">Regain Clinic</h3>
+                <h3 className="font-semibold text-slate-900">ReGain MS Clinic</h3>
                 <span className="inline-flex items-center gap-1 text-sm text-green-600">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                   Open Now
@@ -121,7 +121,7 @@ export default function Location() {
               </div>
             </div>
             <p className="text-sm text-slate-600 mb-4">
-              Hakimpara, Near City Centre, Siliguri
+              Clinic 1 - Babupura Main Road, Siliguri
             </p>
             <Button
               asChild

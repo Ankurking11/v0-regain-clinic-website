@@ -45,7 +45,7 @@ export default function Footer() {
           >
             <Link href="#" className="inline-block mb-4">
               <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
-                RegainClinic
+                ReGain MS Clinic
               </span>
               <p className="text-sm text-slate-400 mt-1">Touching Mobility</p>
             </Link>
@@ -123,27 +123,35 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-6">Contact Info</h3>
             <div className="space-y-4 text-slate-400">
               <p>
-                <span className="block text-white font-medium">Address:</span>
-                Hakimpara, Near City Centre
+                <span className="block text-white font-medium">Clinic 1:</span>
+                Opp Lane, Daffodil School, Babupura Main Road, Siliguri
                 <br />
-                Siliguri, West Bengal 734001
+                <span className="block text-white font-medium mt-2">Clinic 2:</span>
+                Shiv Mandir, Siliguri
               </p>
               <p>
                 <span className="block text-white font-medium">Phone:</span>
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918250588279"
                   className="hover:text-teal-400 transition-colors"
                 >
-                  +91 98765 43210
+                  +91 82505 88279
+                </a>
+                <br />
+                <a
+                  href="tel:+918637569844"
+                  className="hover:text-teal-400 transition-colors"
+                >
+                  +91 86375 69844
                 </a>
               </p>
               <p>
                 <span className="block text-white font-medium">Email:</span>
                 <a
-                  href="mailto:info@regainclinic.com"
+                  href="mailto:sanjeebbhattacharjee0@gmail.com"
                   className="hover:text-teal-400 transition-colors"
                 >
-                  info@regainclinic.com
+                  sanjeebbhattacharjee0@gmail.com
                 </a>
               </p>
             </div>
@@ -156,7 +164,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-slate-400 text-sm text-center md:text-left">
-              &copy; {new Date().getFullYear()} Regain Clinic & Rehabilitation.
+              &copy; {new Date().getFullYear()} ReGain MS Clinic Physiotherapy.
               All rights reserved.
             </p>
             <div className="flex items-center gap-6">

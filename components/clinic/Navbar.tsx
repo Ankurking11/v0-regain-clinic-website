@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Phone, Menu, X, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -15,16 +15,7 @@ const navLinks = [
 ]
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   return (
     <>
@@ -32,18 +23,14 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg"
-            : "bg-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="#" className="flex flex-col">
               <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                RegainClinic
+                ReGain MS Clinic
               </span>
               <span className="text-xs text-slate-500 tracking-wider">
                 Touching Mobility
@@ -66,11 +53,11 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
               <a
-                href="tel:+919876543210"
+                href="tel:+918250588279"
                 className="flex items-center gap-2 text-slate-700 hover:text-teal-600 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span className="font-medium">+91 98765 43210</span>
+                <span className="font-medium">+91 82505 88279</span>
               </a>
               <Button
                 asChild
@@ -113,7 +100,7 @@ export default function Navbar() {
               <div className="flex justify-between items-center mb-8">
                 <div className="flex flex-col">
                   <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                    RegainClinic
+                    ReGain MS Clinic
                   </span>
                   <span className="text-xs text-slate-500">
                     Touching Mobility
@@ -149,12 +136,12 @@ export default function Navbar() {
 
               <div className="mt-auto space-y-4">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918250588279"
                   className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg"
                 >
                   <Phone className="w-5 h-5 text-teal-600" />
                   <span className="font-medium text-slate-700">
-                    +91 98765 43210
+                    +91 82505 88279
                   </span>
                 </a>
                 <Button

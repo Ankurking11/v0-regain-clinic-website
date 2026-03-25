@@ -74,8 +74,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 text-lg px-8"
+                className="bg-teal-600 hover:bg-teal-700 text-white text-lg px-8"
               >
                 <a href="tel:+919876543210">
                   <Phone className="w-5 h-5 mr-2" />
