@@ -28,8 +28,8 @@ const services = [
 
 // Clinic branches
 const branches = [
-  { id: "babupara", name: "Clinic 1" },
-  { id: "shivmandir", name: "Clinic 2" },
+  { id: "babupara", name: "Babupara" },
+  { id: "shivmandir", name: "Shivmandir" },
 ]
 
 // Branch-specific schedule: which days and time slots
@@ -82,8 +82,8 @@ const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9lxEwo
 
 // Branch display names for UI
 const branchNames: Record<string, string> = {
-  babupara: "Clinic 1",
-  shivmandir: "Clinic 2",
+  babupara: "Babupara",
+  shivmandir: "Shivmandir",
 }
 
 function isWeekday(dateString: string): boolean {
