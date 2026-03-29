@@ -23,16 +23,16 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 bg-brand-white shadow-lg transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="#" className="flex flex-col">
-              <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-brand-blue">
                 ReGain MS Clinic
               </span>
-              <span className="text-xs text-slate-500 tracking-wider">
+              <span className="text-xs text-brand-blue/60 tracking-wider">
                 Touching Mobility
               </span>
             </Link>
@@ -43,7 +43,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-slate-700 hover:text-teal-600 transition-colors font-medium"
+                  className="text-brand-blue hover:text-brand-green transition-colors font-medium"
                 >
                   {link.name}
                 </Link>
@@ -54,14 +54,14 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <a
                 href="tel:+918250588279"
-                className="flex items-center gap-2 text-slate-700 hover:text-teal-600 transition-colors"
+                className="flex items-center gap-2 text-brand-blue hover:text-brand-green transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span className="font-medium">+91 82505 88279</span>
               </a>
               <Button
                 asChild
-                className="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white"
+                className="bg-brand-blue hover:bg-brand-blue/90 text-white"
               >
                 <Link href="#appointment">
                   <Calendar className="w-4 h-4 mr-2" />
@@ -73,7 +73,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-700"
+              className="lg:hidden p-2 text-brand-blue"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -94,21 +94,21 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 20 }}
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-2xl lg:hidden"
+            className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-brand-white shadow-2xl lg:hidden"
           >
             <div className="flex flex-col h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <div className="flex flex-col">
-                  <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+                  <span className="text-xl font-bold text-brand-blue">
                     ReGain MS Clinic
                   </span>
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-brand-blue/60">
                     Touching Mobility
                   </span>
                 </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 text-slate-700"
+                  className="p-2 text-brand-blue"
                   aria-label="Close menu"
                 >
                   <X className="w-6 h-6" />
@@ -126,7 +126,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block py-3 text-lg font-medium text-slate-700 hover:text-teal-600 border-b border-slate-100"
+                      className="block py-3 text-lg font-medium text-brand-blue hover:text-brand-green border-b border-brand-blue/10"
                     >
                       {link.name}
                     </Link>
@@ -137,16 +137,16 @@ export default function Navbar() {
               <div className="mt-auto space-y-4">
                 <a
                   href="tel:+918250588279"
-                  className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg"
+                  className="flex items-center gap-3 p-4 bg-brand-blue/5 rounded-lg"
                 >
-                  <Phone className="w-5 h-5 text-teal-600" />
-                  <span className="font-medium text-slate-700">
+                  <Phone className="w-5 h-5 text-brand-blue" />
+                  <span className="font-medium text-brand-blue">
                     +91 82505 88279
                   </span>
                 </a>
                 <Button
                   asChild
-                  className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white"
+                  className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
                 >
                   <Link
                     href="#appointment"
@@ -170,7 +170,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsMobileMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            className="fixed inset-0 z-40 bg-brand-blue/50 lg:hidden"
           />
         )}
       </AnimatePresence>

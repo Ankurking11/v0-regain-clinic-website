@@ -12,12 +12,12 @@ export default function WhatsAppButton() {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring" }}
       whileHover={{ scale: 1.05 }}
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white pl-5 pr-6 py-3 rounded-full shadow-lg transition-colors group"
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-brand-green hover:bg-brand-green/90 text-white pl-5 pr-6 py-3 rounded-full shadow-lg transition-colors group"
     >
       {/* Pulsing Dot */}
       <span className="absolute -top-1 -right-1 w-4 h-4">
-        <span className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75" />
-        <span className="absolute inset-0 bg-green-400 rounded-full" />
+        <span className="absolute inset-0 bg-brand-green rounded-full animate-ping opacity-75" />
+        <span className="absolute inset-0 bg-brand-green rounded-full" />
       </span>
 
       {/* WhatsApp Icon */}

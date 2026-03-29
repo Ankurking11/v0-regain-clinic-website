@@ -36,7 +36,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-brand-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,13 +44,13 @@ export default function Testimonials() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 bg-brand-green/10 text-brand-green rounded-full text-sm font-medium mb-4">
             Patient Stories
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-serif">
+          <h2 className="text-4xl lg:text-5xl font-bold text-brand-blue mb-6 font-serif">
             What Our Patients Say
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-blue/70 max-w-2xl mx-auto">
             Real stories from real patients who have experienced our care and
             achieved remarkable recovery outcomes.
           </p>
@@ -69,7 +69,7 @@ export default function Testimonials() {
             >
               {/* Quote Icon */}
               <div className="absolute -top-4 right-8">
-                <div className="w-10 h-10 bg-gradient-to-r from-teal-600 to-blue-600 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center">
                   <Quote className="w-5 h-5 text-white" />
                 </div>
               </div>
@@ -79,13 +79,13 @@ export default function Testimonials() {
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 fill-amber-400 text-amber-400"
+                    className="w-5 h-5 fill-brand-green text-brand-green"
                   />
                 ))}
               </div>
 
               {/* Review */}
-              <p className="text-slate-600 leading-relaxed mb-6">
+              <p className="text-brand-blue/70 leading-relaxed mb-6">
                 &quot;{testimonial.review}&quot;
               </p>
 
@@ -100,16 +100,16 @@ export default function Testimonials() {
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900">
+                  <h4 className="font-semibold text-brand-blue">
                     {testimonial.name}
                   </h4>
-                  <p className="text-sm text-slate-500">{testimonial.location}</p>
+                  <p className="text-sm text-brand-blue/60">{testimonial.location}</p>
                 </div>
               </div>
 
               {/* Condition Badge */}
-              <div className="mt-4 pt-4 border-t border-slate-100">
-                <span className="inline-block px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-sm font-medium">
+              <div className="mt-4 pt-4 border-t border-brand-blue/10">
+                <span className="inline-block px-3 py-1 bg-brand-green/10 text-brand-green rounded-full text-sm font-medium">
                   {testimonial.condition}
                 </span>
               </div>
