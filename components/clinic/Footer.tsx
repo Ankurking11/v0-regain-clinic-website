@@ -3,30 +3,7 @@
 import { motion } from "framer-motion"
 import { ChevronUp, Facebook, Instagram, Youtube } from "lucide-react"
 import Link from "next/link"
-
-const quickLinks = [
-  { name: "Home", href: "#" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Facilities", href: "#facilities" },
-  { name: "Appointment", href: "#appointment" },
-  { name: "Contact", href: "#location" },
-]
-
-const services = [
-  "Pain Management",
-  "Joint Replacement Rehab",
-  "Neurological Rehabilitation",
-  "Pediatric Physiotherapy",
-  "Sports Injury Rehab",
-  "Post Surgical Rehab",
-]
-
-const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
-]
+import { siteConfig } from "@/config/site"
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -45,27 +22,42 @@ export default function Footer() {
           >
             <Link href="#" className="inline-block mb-4">
               <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
-                ReGain MS Clinic
+                {siteConfig.business.logoText}
               </span>
-              <p className="text-sm text-slate-400 mt-1">Touching Mobility</p>
+              <p className="text-sm text-slate-400 mt-1">{siteConfig.business.tagline}</p>
             </Link>
             <p className="text-slate-400 mb-6 leading-relaxed">
               Your trusted partner in rehabilitation and physiotherapy care.
               Helping you regain your mobility and quality of life.
             </p>
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-10 h-10 bg-slate-800 hover:bg-gradient-to-r hover:from-teal-600 hover:to-blue-600 rounded-lg flex items-center justify-center transition-all duration-300"
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
+              <a
+                href={siteConfig.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-10 h-10 bg-slate-800 hover:bg-gradient-to-r hover:from-teal-600 hover:to-blue-600 rounded-lg flex items-center justify-center transition-all duration-300"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href={siteConfig.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 bg-slate-800 hover:bg-gradient-to-r hover:from-teal-600 hover:to-blue-600 rounded-lg flex items-center justify-center transition-all duration-300"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href={siteConfig.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-10 h-10 bg-slate-800 hover:bg-gradient-to-r hover:from-teal-600 hover:to-blue-600 rounded-lg flex items-center justify-center transition-all duration-300"
+              >
+                <Youtube className="w-5 h-5" />
+              </a>
             </div>
           </motion.div>
 
@@ -78,7 +70,7 @@ export default function Footer() {
           >
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              {quickLinks.map((link) => (
+              {siteConfig.footerLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -100,7 +92,7 @@ export default function Footer() {
           >
             <h3 className="text-lg font-semibold mb-6">Our Services</h3>
             <ul className="space-y-3">
-              {services.map((service) => (
+              {siteConfig.services.slice(0, 6).map((service) => (
                 <li key={service}>
                   <Link
                     href="#services"
@@ -122,36 +114,33 @@ export default function Footer() {
           >
             <h3 className="text-lg font-semibold mb-6">Contact Info</h3>
             <div className="space-y-4 text-slate-400">
-              <p>
-                <span className="block text-white font-medium">Clinic 1:</span>
-                Opp Lane, Daffodil School, Babupura Main Road, Siliguri
-                <br />
-                <span className="block text-white font-medium mt-2">Clinic 2:</span>
-                Shiv Mandir, Siliguri
-              </p>
+              {siteConfig.locations.map((loc, i) => (
+                <p key={loc.id}>
+                  <span className="block text-white font-medium">{loc.label}:</span>
+                  {loc.address}
+                </p>
+              ))}
               <p>
                 <span className="block text-white font-medium">Phone:</span>
-                <a
-                  href="tel:+918250588279"
-                  className="hover:text-teal-400 transition-colors"
-                >
-                  +91 82505 88279
-                </a>
-                <br />
-                <a
-                  href="tel:+918637569844"
-                  className="hover:text-teal-400 transition-colors"
-                >
-                  +91 86375 69844
-                </a>
+                {siteConfig.contact.phone.map((phone, i) => (
+                  <span key={phone}>
+                    <a
+                      href={`tel:${phone.replace(/\s/g, "")}`}
+                      className="hover:text-teal-400 transition-colors"
+                    >
+                      {phone}
+                    </a>
+                    {i < siteConfig.contact.phone.length - 1 && <br />}
+                  </span>
+                ))}
               </p>
               <p>
                 <span className="block text-white font-medium">Email:</span>
                 <a
-                  href="mailto:sanjeebbhattacharjee0@gmail.com"
+                  href={`mailto:${siteConfig.contact.email}`}
                   className="hover:text-teal-400 transition-colors"
                 >
-                  sanjeebbhattacharjee0@gmail.com
+                  {siteConfig.contact.email}
                 </a>
               </p>
             </div>
@@ -164,8 +153,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-slate-400 text-sm text-center md:text-left">
-              &copy; {new Date().getFullYear()} ReGain MS Clinic Physiotherapy.
-              All rights reserved.
+              &copy; {new Date().getFullYear()} {siteConfig.business.name}. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <Link

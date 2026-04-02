@@ -5,14 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Phone, Menu, X, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-
-const navLinks = [
-  { name: "Home", href: "#" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Facilities", href: "#facilities" },
-  { name: "Contact", href: "#location" },
-]
+import { siteConfig } from "@/config/site"
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -30,16 +23,16 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="#" className="flex flex-col">
               <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                ReGain MS Clinic
+                {siteConfig.business.logoText}
               </span>
               <span className="text-xs text-slate-500 tracking-wider">
-                Touching Mobility
+                {siteConfig.business.tagline}
               </span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => (
+              {siteConfig.navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
@@ -53,11 +46,11 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
               <a
-                href="tel:+918250588279"
+                href={`tel:${siteConfig.contact.phone[0].replace(/\s/g, "")}`}
                 className="flex items-center gap-2 text-slate-700 hover:text-teal-600 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span className="font-medium">+91 82505 88279</span>
+                <span className="font-medium">{siteConfig.contact.phone[0]}</span>
               </a>
               <Button
                 asChild
@@ -100,10 +93,10 @@ export default function Navbar() {
               <div className="flex justify-between items-center mb-8">
                 <div className="flex flex-col">
                   <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                    ReGain MS Clinic
+                    {siteConfig.business.logoText}
                   </span>
                   <span className="text-xs text-slate-500">
-                    Touching Mobility
+                    {siteConfig.business.tagline}
                   </span>
                 </div>
                 <button
@@ -116,7 +109,7 @@ export default function Navbar() {
               </div>
 
               <nav className="flex flex-col gap-4">
-                {navLinks.map((link, index) => (
+                {siteConfig.navLinks.map((link, index) => (
                   <motion.div
                     key={link.name}
                     initial={{ opacity: 0, x: 20 }}
@@ -136,12 +129,12 @@ export default function Navbar() {
 
               <div className="mt-auto space-y-4">
                 <a
-                  href="tel:+918250588279"
+                  href={`tel:${siteConfig.contact.phone[0].replace(/\s/g, "")}`}
                   className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg"
                 >
                   <Phone className="w-5 h-5 text-teal-600" />
                   <span className="font-medium text-slate-700">
-                    +91 82505 88279
+                    {siteConfig.contact.phone[0]}
                   </span>
                 </a>
                 <Button
