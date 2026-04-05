@@ -8,18 +8,18 @@ import { Button } from "@/components/ui/button"
 const clinics = {
   babupara: {
     name: "REGAIN BABUPARA",
-    lat: 26.727946,
-    lng: 88.395874,
-    mapLink: "https://www.google.com/maps?q=26.727946,88.395874",
-    embedSrc: "https://maps.google.com/maps?q=26.727946,88.395874&z=17&output=embed",
+    lat: 26.702661461668256,
+    lng: 88.42478538837976,
+    mapLink: "https://maps.app.goo.gl/tKq4MrHoarQKMSSH8",
+    embedSrc: "https://maps.google.com/maps?q=26.702661461668256,88.42478538837976&z=17&output=embed",
     address: "Opp Lane, Daffodil School, Babupura Main Road, Siliguri",
   },
   shivmandir: {
     name: "REGAIN MS SHIVMANDIR",
-    lat: 26.694872,
-    lng: 88.430615,
-    mapLink: "https://www.google.com/maps?q=26.694872,88.430615",
-    embedSrc: "https://maps.google.com/maps?q=26.694872,88.430615&z=17&output=embed",
+    lat: 26.706895821283673,
+    lng: 88.36393843562371,
+    mapLink: "https://maps.app.goo.gl/NuvdVfPdu7HfFeY18",
+    embedSrc: "https://maps.google.com/maps?q=26.706895821283673,88.36393843562371&z=17&output=embed",
     address: "Kadamtala, Opp BSF Camp, Shivmandir, Sainath Road (Below Govindo Residency)",
   },
 }
