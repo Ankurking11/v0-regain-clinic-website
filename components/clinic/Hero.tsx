@@ -64,7 +64,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-brand-blue hover:bg-brand-blue/90 text-white text-lg px-8"
+                className="bg-white/10 text-white border border-white/30 text-lg px-8 transition-all duration-300 hover:bg-white hover:text-brand-blue hover:scale-105"
               >
                 <Link href="#appointment">
                   <Calendar className="w-5 h-5 mr-2" />
@@ -84,7 +84,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-brand-blue hover:bg-brand-blue/90 text-white text-lg px-8"
+                className="bg-white/10 text-white border border-white/30 text-lg px-8 transition-all duration-300 hover:bg-white hover:text-brand-blue hover:scale-105"
               >
                 <Link href="#appointment">
                   <Video className="w-5 h-5 mr-2" />

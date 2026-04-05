@@ -28,7 +28,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="#" className="flex flex-col">
+            <Link
+              href="#"
+              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              className="flex flex-col cursor-pointer"
+            >
               <span className="text-2xl font-bold text-brand-blue">
                 ReGain MS Clinic
               </span>
@@ -61,7 +65,7 @@ export default function Navbar() {
               </a>
               <Button
                 asChild
-                className="bg-brand-blue hover:bg-brand-blue/90 text-white"
+                className="bg-brand-blue/10 text-brand-blue border border-brand-blue/30 transition-all duration-300 hover:bg-brand-blue hover:text-white hover:scale-105"
               >
                 <Link href="#appointment">
                   <Calendar className="w-4 h-4 mr-2" />
@@ -98,14 +102,17 @@ export default function Navbar() {
           >
             <div className="flex flex-col h-full p-6">
               <div className="flex justify-between items-center mb-8">
-                <div className="flex flex-col">
+                <button
+                  onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); setIsMobileMenuOpen(false); }}
+                  className="flex flex-col cursor-pointer text-left"
+                >
                   <span className="text-xl font-bold text-brand-blue">
                     ReGain MS Clinic
                   </span>
                   <span className="text-xs text-brand-blue/60">
                     Touching Mobility
                   </span>
-                </div>
+                </button>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 text-brand-blue"
@@ -146,7 +153,7 @@ export default function Navbar() {
                 </a>
                 <Button
                   asChild
-                  className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
+                  className="w-full bg-brand-blue/10 text-brand-blue border border-brand-blue/30 transition-all duration-300 hover:bg-brand-blue hover:text-white hover:scale-105"
                 >
                   <Link
                     href="#appointment"
