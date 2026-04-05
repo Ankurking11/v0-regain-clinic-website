@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Phone, Menu, X, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 const navLinks = [
   { name: "Home", href: "#" },
@@ -35,14 +36,23 @@ export default function Navbar() {
             <Link
               href="#"
               onClick={(e) => { e.preventDefault(); handleScrollToTop(); }}
-              className="flex flex-col cursor-pointer"
+              className="flex items-center gap-3 cursor-pointer"
             >
-              <span className="text-2xl font-bold text-brand-blue">
-                ReGain MS Clinic
-              </span>
-              <span className="text-xs text-brand-blue/60 tracking-wider">
-                Touching Mobility
-              </span>
+              <Image
+                src="/favicon.png"
+                alt="ReGain MS Clinic Logo"
+                width={48}
+                height={48}
+                className="rounded-full"
+              />
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-brand-blue">
+                  ReGain MS Clinic
+                </span>
+                <span className="text-xs text-brand-blue/60 tracking-wider">
+                  Touching Mobility
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -108,14 +118,23 @@ export default function Navbar() {
               <div className="flex justify-between items-center mb-8">
                 <button
                   onClick={() => { handleScrollToTop(); setIsMobileMenuOpen(false); }}
-                  className="flex flex-col cursor-pointer text-left"
+                  className="flex items-center gap-3 cursor-pointer text-left"
                 >
-                  <span className="text-xl font-bold text-brand-blue">
-                    ReGain MS Clinic
-                  </span>
-                  <span className="text-xs text-brand-blue/60">
-                    Touching Mobility
-                  </span>
+                  <Image
+                    src="/favicon.png"
+                    alt="ReGain MS Clinic Logo"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-xl font-bold text-brand-blue">
+                      ReGain MS Clinic
+                    </span>
+                    <span className="text-xs text-brand-blue/60">
+                      Touching Mobility
+                    </span>
+                  </div>
                 </button>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
