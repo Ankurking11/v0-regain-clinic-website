@@ -159,10 +159,7 @@ export default function Location() {
               </div>
               <div>
                 <h3 className="font-semibold text-brand-blue">{clinic.name}</h3>
-                <span className="inline-flex items-center gap-1 text-sm text-brand-green">
-                  <span className="w-2 h-2 bg-brand-green rounded-full animate-pulse" />
-                  Open Now
-                </span>
+
               </div>
             </div>
             <p className="text-sm text-brand-blue/70 mb-4">{clinic.address}</p>
