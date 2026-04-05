@@ -17,6 +17,10 @@ const navLinks = [
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
     <>
       <motion.header
@@ -30,7 +34,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link
               href="#"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              onClick={(e) => { e.preventDefault(); handleScrollToTop(); }}
               className="flex flex-col cursor-pointer"
             >
               <span className="text-2xl font-bold text-brand-blue">
@@ -103,7 +107,7 @@ export default function Navbar() {
             <div className="flex flex-col h-full p-6">
               <div className="flex justify-between items-center mb-8">
                 <button
-                  onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); setIsMobileMenuOpen(false); }}
+                  onClick={() => { handleScrollToTop(); setIsMobileMenuOpen(false); }}
                   className="flex flex-col cursor-pointer text-left"
                 >
                   <span className="text-xl font-bold text-brand-blue">
