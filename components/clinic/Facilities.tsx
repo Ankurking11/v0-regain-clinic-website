@@ -39,7 +39,7 @@ const facilities = [
 
 export default function Facilities() {
   return (
-    <section id="facilities" className="py-24 bg-slate-50">
+    <section id="facilities" className="py-24 bg-brand-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,13 +47,13 @@ export default function Facilities() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 bg-brand-green/10 text-brand-green rounded-full text-sm font-medium mb-4">
             Our Facilities
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-serif">
+          <h2 className="text-4xl lg:text-5xl font-bold text-brand-blue mb-6 font-serif">
             State-of-the-Art Equipment
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-blue/70 max-w-2xl mx-auto">
             Equipped with the latest technology and modern therapeutic equipment
             for comprehensive rehabilitation care.
           </p>
@@ -68,12 +68,12 @@ export default function Facilities() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
               whileHover={{ y: -4, scale: 1.02 }}
-              className="bg-white rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100"
+              className="bg-white rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition-all duration-300 border border-brand-blue/10"
             >
-              <div className="w-14 h-14 mx-auto bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl flex items-center justify-center mb-3">
-                <facility.icon className="w-7 h-7 text-teal-600" />
+              <div className="w-14 h-14 mx-auto bg-brand-green/10 rounded-xl flex items-center justify-center mb-3">
+                <facility.icon className="w-7 h-7 text-brand-green" />
               </div>
-              <p className="text-sm font-medium text-slate-700">
+              <p className="text-sm font-medium text-brand-blue">
                 {facility.name}
               </p>
             </motion.div>
@@ -85,12 +85,12 @@ export default function Facilities() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 bg-gradient-to-r from-teal-600 to-blue-600 rounded-2xl p-8 text-center"
+          className="mt-12 bg-brand-blue rounded-2xl p-8 text-center"
         >
           <p className="text-xl font-semibold text-white">
             Hygienic & Comfortable Environment
           </p>
-          <p className="text-teal-100 mt-2">
+          <p className="text-white/80 mt-2">
             Designed for your comfort and optimal recovery experience
           </p>
         </motion.div>

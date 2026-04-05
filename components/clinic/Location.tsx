@@ -31,7 +31,7 @@ const contactInfo = [
 
 export default function Location() {
   return (
-    <section id="location" className="py-24 bg-slate-50">
+    <section id="location" className="py-24 bg-brand-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,13 +39,13 @@ export default function Location() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 bg-brand-green/10 text-brand-green rounded-full text-sm font-medium mb-4">
             Find Us
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-serif">
+          <h2 className="text-4xl lg:text-5xl font-bold text-brand-blue mb-6 font-serif">
             Visit Our Clinic
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-blue/70 max-w-2xl mx-auto">
             Conveniently located in Siliguri with easy access and ample parking
             facilities.
           </p>
@@ -62,17 +62,17 @@ export default function Location() {
               transition={{ delay: index * 0.1 }}
               className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center mb-4">
                 <info.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-2">{info.title}</h3>
+              <h3 className="font-semibold text-brand-blue mb-2">{info.title}</h3>
               <div className="space-y-1">
                 {info.content.map((line, i) => (
-                  <p key={i} className="text-slate-600">
+                  <p key={i} className="text-brand-blue/70">
                     {info.links?.[i] ? (
                       <a
                         href={info.links[i]}
-                        className="hover:text-teal-600 transition-colors"
+                        className="hover:text-brand-green transition-colors"
                       >
                         {line}
                       </a>
@@ -109,24 +109,24 @@ export default function Location() {
           {/* Floating Card */}
           <div className="absolute top-6 left-6 bg-white rounded-2xl p-5 shadow-xl max-w-xs hidden sm:block">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center">
                 <MapPin className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900">ReGain MS Clinic</h3>
-                <span className="inline-flex items-center gap-1 text-sm text-green-600">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <h3 className="font-semibold text-brand-blue">ReGain MS Clinic</h3>
+                <span className="inline-flex items-center gap-1 text-sm text-brand-green">
+                  <span className="w-2 h-2 bg-brand-green rounded-full animate-pulse" />
                   Open Now
                 </span>
               </div>
             </div>
-            <p className="text-sm text-slate-600 mb-4">
+            <p className="text-sm text-brand-blue/70 mb-4">
               Clinic 1 - Babupura Main Road, Siliguri
             </p>
             <Button
               asChild
               size="sm"
-              className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white"
+              className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
             >
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=Siliguri,+West+Bengal"
@@ -144,7 +144,7 @@ export default function Location() {
         <div className="mt-6 sm:hidden">
           <Button
             asChild
-            className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white"
+            className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
           >
             <a
               href="https://www.google.com/maps/dir/?api=1&destination=Siliguri,+West+Bengal"
