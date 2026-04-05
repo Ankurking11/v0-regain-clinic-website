@@ -24,7 +24,7 @@ export default function Hero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/95 via-brand-blue/80 to-brand-blue/60" />
       </div>
 
       {/* Content */}
@@ -40,22 +40,22 @@ export default function Hero() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600/20 border border-teal-500/30 rounded-full mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green/20 border border-brand-green/40 rounded-full mb-6"
             >
-              <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
-              <span className="text-teal-300 text-sm font-medium">
+              <span className="w-2 h-2 bg-brand-green rounded-full animate-pulse" />
+              <span className="text-white text-sm font-medium">
                 Now Accepting New Patients
               </span>
             </motion.div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-balance">
               Advanced Physiotherapy & Stroke Rehabilitation in{" "}
-              <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="text-brand-green">
                 Siliguri
               </span>
             </h1>
 
-            <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-xl">
+            <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-xl">
               Expert Care for Pain, Neuro & Post-Surgical Recovery. Experience
               world-class rehabilitation with personalized treatment plans.
             </p>
@@ -64,7 +64,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white text-lg px-8"
+                className="bg-brand-blue hover:bg-brand-blue/90 text-white text-lg px-8 border border-white/30"
               >
                 <Link href="#appointment">
                   <Calendar className="w-5 h-5 mr-2" />
@@ -74,7 +74,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-teal-600 hover:bg-teal-700 text-white text-lg px-8"
+                className="bg-brand-green hover:bg-brand-green/90 text-white text-lg px-8"
               >
                 <a href="tel:+919876543210">
                   <Phone className="w-5 h-5 mr-2" />
@@ -85,7 +85,7 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-teal-500/30 text-teal-300 hover:bg-teal-500/10 text-lg px-8"
+                className="border-white/40 text-white bg-white/10 hover:bg-white/20 text-lg px-8"
               >
                 <Link href="#appointment">
                   <Video className="w-5 h-5 mr-2" />
@@ -110,12 +110,12 @@ export default function Hero() {
                   className="text-center"
                 >
                   <div className="flex justify-center mb-2">
-                    <stat.icon className="w-6 h-6 text-teal-400" />
+                    <stat.icon className="w-6 h-6 text-brand-green" />
                   </div>
                   <div className="text-3xl font-bold text-white">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
+                  <div className="text-sm text-white/70">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -129,38 +129,38 @@ export default function Hero() {
             className="hidden lg:block"
           >
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-teal-600/20 to-blue-600/20 rounded-3xl blur-2xl" />
-              <div className="relative bg-gradient-to-br from-teal-600/10 to-blue-600/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
+              <div className="absolute -inset-4 bg-brand-green/20 rounded-3xl blur-2xl" />
+              <div className="relative bg-brand-blue/30 backdrop-blur-sm border border-white/20 rounded-3xl p-8">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <div className="w-12 h-12 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                    <div className="w-12 h-12 bg-brand-green rounded-xl flex items-center justify-center mb-4">
                       <Award className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-white font-semibold mb-1">Certified</h3>
-                    <p className="text-slate-400 text-sm">
+                    <p className="text-white/70 text-sm">
                       State Council Registered
                     </p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl flex items-center justify-center mb-4">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                    <div className="w-12 h-12 bg-brand-green rounded-xl flex items-center justify-center mb-4">
                       <Users className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-white font-semibold mb-1">Expert Team</h3>
-                    <p className="text-slate-400 text-sm">
+                    <p className="text-white/70 text-sm">
                       Specialized Care
                     </p>
                   </div>
                 </div>
-                <div className="mt-4 bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                <div className="mt-4 bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-teal-600 to-blue-600 rounded-full flex items-center justify-center">
+                    <div className="w-16 h-16 bg-brand-green rounded-full flex items-center justify-center">
                       <TrendingUp className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-white font-semibold text-lg">
                         Evidence-Based Treatment
                       </h3>
-                      <p className="text-slate-400">
+                      <p className="text-white/70">
                         Latest techniques & equipment
                       </p>
                     </div>
@@ -182,7 +182,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2"
+          className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2"
         >
           <div className="w-1.5 h-1.5 bg-white rounded-full" />
         </motion.div>

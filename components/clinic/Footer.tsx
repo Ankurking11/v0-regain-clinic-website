@@ -34,7 +34,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-brand-blue text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -44,12 +44,12 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <Link href="#" className="inline-block mb-4">
-              <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-white">
                 ReGain MS Clinic
               </span>
-              <p className="text-sm text-slate-400 mt-1">Touching Mobility</p>
+              <p className="text-sm text-white/70 mt-1">Touching Mobility</p>
             </Link>
-            <p className="text-slate-400 mb-6 leading-relaxed">
+            <p className="text-white/70 mb-6 leading-relaxed">
               Your trusted partner in rehabilitation and physiotherapy care.
               Helping you regain your mobility and quality of life.
             </p>
@@ -61,7 +61,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 bg-slate-800 hover:bg-gradient-to-r hover:from-teal-600 hover:to-blue-600 rounded-lg flex items-center justify-center transition-all duration-300"
+                  className="w-10 h-10 bg-white/10 hover:bg-brand-green rounded-lg flex items-center justify-center transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -82,7 +82,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-slate-400 hover:text-teal-400 transition-colors"
+                    className="text-white/70 hover:text-brand-green transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -104,7 +104,7 @@ export default function Footer() {
                 <li key={service}>
                   <Link
                     href="#services"
-                    className="text-slate-400 hover:text-teal-400 transition-colors"
+                    className="text-white/70 hover:text-brand-green transition-colors"
                   >
                     {service}
                   </Link>
@@ -121,7 +121,7 @@ export default function Footer() {
             transition={{ delay: 0.3 }}
           >
             <h3 className="text-lg font-semibold mb-6">Contact Info</h3>
-            <div className="space-y-4 text-slate-400">
+            <div className="space-y-4 text-white/70">
               <p>
                 <span className="block text-white font-medium">Clinic 1:</span>
                 Opp Lane, Daffodil School, Babupura Main Road, Siliguri
@@ -133,14 +133,14 @@ export default function Footer() {
                 <span className="block text-white font-medium">Phone:</span>
                 <a
                   href="tel:+918250588279"
-                  className="hover:text-teal-400 transition-colors"
+                  className="hover:text-brand-green transition-colors"
                 >
                   +91 82505 88279
                 </a>
                 <br />
                 <a
                   href="tel:+918637569844"
-                  className="hover:text-teal-400 transition-colors"
+                  className="hover:text-brand-green transition-colors"
                 >
                   +91 86375 69844
                 </a>
@@ -149,7 +149,7 @@ export default function Footer() {
                 <span className="block text-white font-medium">Email:</span>
                 <a
                   href="mailto:sanjeebbhattacharjee0@gmail.com"
-                  className="hover:text-teal-400 transition-colors"
+                  className="hover:text-brand-green transition-colors"
                 >
                   sanjeebbhattacharjee0@gmail.com
                 </a>
@@ -160,30 +160,30 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-slate-800">
+      <div className="border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-slate-400 text-sm text-center md:text-left">
+            <p className="text-white/70 text-sm text-center md:text-left">
               &copy; {new Date().getFullYear()} ReGain MS Clinic Physiotherapy.
               All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <Link
                 href="#"
-                className="text-sm text-slate-400 hover:text-teal-400 transition-colors"
+                className="text-sm text-white/70 hover:text-brand-green transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="#"
-                className="text-sm text-slate-400 hover:text-teal-400 transition-colors"
+                className="text-sm text-white/70 hover:text-brand-green transition-colors"
               >
                 Terms of Service
               </Link>
               <button
                 onClick={scrollToTop}
                 aria-label="Scroll to top"
-                className="w-10 h-10 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 rounded-lg flex items-center justify-center transition-all duration-300"
+                className="w-10 h-10 bg-brand-green hover:bg-brand-green/90 rounded-lg flex items-center justify-center transition-all duration-300"
               >
                 <ChevronUp className="w-5 h-5" />
               </button>

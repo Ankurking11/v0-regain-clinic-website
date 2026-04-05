@@ -29,7 +29,7 @@ const credentials = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-slate-50">
+    <section id="about" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image */}
@@ -47,7 +47,7 @@ export default function About() {
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/40 to-transparent" />
               
               {/* Experience Badge */}
               <motion.div
@@ -55,7 +55,7 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="absolute top-6 right-6 bg-gradient-to-r from-teal-600 to-blue-600 text-white px-6 py-3 rounded-full shadow-xl"
+                className="absolute top-6 right-6 bg-brand-blue text-white px-6 py-3 rounded-full shadow-xl"
               >
                 <span className="text-2xl font-bold">15+</span>
                 <span className="text-sm ml-1">Years Experience</span>
@@ -63,8 +63,8 @@ export default function About() {
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-r from-teal-600 to-blue-600 rounded-3xl -z-10 opacity-20" />
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl -z-10 opacity-20" />
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-brand-blue rounded-3xl -z-10 opacity-10" />
+            <div className="absolute -top-6 -right-6 w-24 h-24 bg-brand-green rounded-3xl -z-10 opacity-10" />
           </motion.div>
 
           {/* Content */}
@@ -74,18 +74,18 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-2 bg-brand-green/10 text-brand-green rounded-full text-sm font-medium mb-4">
               About Your Doctor
             </span>
             
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-serif">
+            <h2 className="text-4xl lg:text-5xl font-bold text-brand-blue mb-6 font-serif">
               Dr. Sanjeeb Bhattacharjee
-              <span className="block text-xl lg:text-2xl font-normal text-slate-600 mt-2">
+              <span className="block text-xl lg:text-2xl font-normal text-brand-blue/70 mt-2">
                 (P.T.) — Consultant Physiotherapist
               </span>
             </h2>
 
-            <p className="text-lg text-slate-600 leading-relaxed mb-8">
+            <p className="text-lg text-brand-blue/80 leading-relaxed mb-8">
               With over 15 years of dedicated experience in physiotherapy and 
               rehabilitation, Dr. Sanjeeb Bhattacharjee has helped thousands of 
               patients regain their mobility and quality of life. Specializing in 
@@ -103,17 +103,17 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-100"
+                  className="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-brand-blue/10"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center flex-shrink-0">
                       <cred.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-slate-900">
+                      <h3 className="font-semibold text-brand-blue">
                         {cred.title}
                       </h3>
-                      <p className="text-sm text-slate-500">{cred.description}</p>
+                      <p className="text-sm text-brand-blue/60">{cred.description}</p>
                     </div>
                   </div>
                 </motion.div>

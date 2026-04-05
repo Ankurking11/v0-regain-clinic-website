@@ -273,13 +273,13 @@ export default function Appointment() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-2 bg-brand-green/10 text-brand-green rounded-full text-sm font-medium mb-4">
             Book Appointment
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-serif">
+          <h2 className="text-4xl lg:text-5xl font-bold text-brand-blue mb-6 font-serif">
             Schedule Your Visit
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-blue/80 max-w-2xl mx-auto">
             Take the first step towards recovery. Book your appointment today
             and let us help you regain your mobility.
           </p>
@@ -293,16 +293,16 @@ export default function Appointment() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="bg-slate-50 rounded-2xl p-6">
+            <div className="bg-brand-blue/5 rounded-2xl p-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-teal-600 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center flex-shrink-0">
                   <Clock className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">
+                  <h3 className="font-semibold text-brand-blue mb-2">
                     Clinic Hours
                   </h3>
-                  <div className="space-y-1 text-slate-600">
+                  <div className="space-y-1 text-brand-blue/80">
                     <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
                     <p>Sunday: By Appointment Only</p>
                   </div>
@@ -310,16 +310,16 @@ export default function Appointment() {
               </div>
             </div>
 
-            <div className="bg-slate-50 rounded-2xl p-6">
+            <div className="bg-brand-green/5 rounded-2xl p-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-brand-green rounded-xl flex items-center justify-center flex-shrink-0">
                   <MessageCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">
+                  <h3 className="font-semibold text-brand-blue mb-2">
                     Quick Response
                   </h3>
-                  <p className="text-slate-600">
+                  <p className="text-brand-blue/80">
                     We typically respond to appointment requests within 2 hours
                     during clinic hours.
                   </p>
@@ -331,7 +331,7 @@ export default function Appointment() {
               href="https://wa.me/919876543210?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20Regain%20Clinic."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 w-full py-4 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold transition-colors"
+              className="flex items-center justify-center gap-3 w-full py-4 bg-brand-green hover:bg-brand-green/90 text-white rounded-xl font-semibold transition-colors"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -349,7 +349,7 @@ export default function Appointment() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100"
+            className="bg-white rounded-3xl p-8 shadow-xl border border-brand-blue/10"
           >
             {isSubmitted ? (
               <motion.div
@@ -357,19 +357,19 @@ export default function Appointment() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-12"
               >
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle className="w-10 h-10 text-green-600" />
+                <div className="w-20 h-20 bg-brand-green/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-10 h-10 text-brand-green" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                <h3 className="text-2xl font-bold text-brand-blue mb-2">
                   Appointment Request Sent!
                 </h3>
-                <p className="text-slate-600 mb-6">
+                <p className="text-brand-blue/80 mb-6">
                   We will contact you within 2 hours to confirm your appointment.
                 </p>
                 <Button
                   onClick={() => setIsSubmitted(false)}
                   variant="outline"
-                  className="border-teal-600 text-teal-600 hover:bg-teal-50"
+                  className="border-brand-green text-brand-green hover:bg-brand-green/5"
                 >
                   Book Another Appointment
                 </Button>
@@ -459,13 +459,13 @@ export default function Appointment() {
                     onChange={handleDateChange}
                   />
                   {formData.date && !isWeekday(formData.date) && (
-                    <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-brand-blue mt-1 flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       Clinic is closed on this day. Please select Mon-Sat.
                     </p>
                   )}
                   {formData.date && isWeekday(formData.date) && formData.branch && !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) && (
-                    <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-brand-blue mt-1 flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       {branchNames[formData.branch]} is closed on this day. Please select another date.
                     </p>
@@ -482,13 +482,13 @@ export default function Appointment() {
                     <div className="flex items-center gap-2">
                       <Label>Available Time Slots</Label>
                       {formData.branch && (
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-brand-blue/70">
                           at {branchNames[formData.branch] || formData.branch}
                         </span>
                       )}
                     </div>
                     {!formData.branch && (
-                      <p className="text-sm text-amber-600 flex items-center gap-2">
+                      <p className="text-sm text-brand-blue flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         Please select a branch first to check availability.
                       </p>
@@ -496,7 +496,7 @@ export default function Appointment() {
                     {formData.branch && (
                       <>
                         {isLoadingSlots ? (
-                          <div className="flex items-center gap-2 text-slate-500">
+                          <div className="flex items-center gap-2 text-brand-blue/70">
                             <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -507,7 +507,7 @@ export default function Appointment() {
                           <>
                             {/* Show closed message if branch not open on this day */}
                             {formData.date && !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) ? (
-                              <p className="text-sm text-amber-600 flex items-center gap-2">
+                              <p className="text-sm text-brand-blue flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
                                 {branchNames[formData.branch]} is closed on this day. Please select another date.
                               </p>
@@ -525,23 +525,23 @@ export default function Appointment() {
                                         disabled={isBooked}
                                         variant={isSelected ? "default" : "outline"}
                                         className={isBooked
-                                          ? "bg-slate-100 text-slate-400 cursor-not-allowed border-slate-200"
+                                          ? "bg-brand-blue/10 text-brand-blue/40 cursor-not-allowed border-brand-blue/20"
                                           : isSelected
-                                            ? "bg-teal-600 text-white"
-                                            : "border-teal-200 hover:border-teal-400"
+                                            ? "bg-brand-blue text-white"
+                                            : "border-brand-green/30 hover:border-brand-green"
                                         }
                                         onClick={() => !isBooked && setSelectedSlot(slot)}
                                       >
                                         {slot}
                                         {isBooked && (
-                                          <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" title="Booked" />
+                                          <span className="absolute -top-1 -right-1 w-3 h-3 bg-brand-blue/60 rounded-full" title="Booked" />
                                         )}
                                       </Button>
                                     )
                                   })}
                                 </div>
                                 <div className="flex items-center gap-4 text-xs">
-                                  <p className="text-slate-500">
+                                  <p className="text-brand-blue/70">
                                     {formData.date && (
                                       <span>
                                         {branchNames[formData.branch]} - {getDaySlotLabel(formData.branch, getDayOfWeek(formData.date))}
@@ -549,8 +549,8 @@ export default function Appointment() {
                                     )}
                                   </p>
                                   <div className="flex items-center gap-1">
-                                    <span className="w-3 h-3 bg-red-500 rounded-full" />
-                                    <span className="text-slate-600">Booked</span>
+                                    <span className="w-3 h-3 bg-brand-blue/60 rounded-full" />
+                                    <span className="text-brand-blue/70">Booked</span>
                                   </div>
                                 </div>
                               </>
@@ -558,7 +558,7 @@ export default function Appointment() {
                           </>
                         )}
                         {availableSlots.length === 0 && !isLoadingSlots && formData.date && isBranchOpen(formData.branch, getDayOfWeek(formData.date)) && (
-                          <p className="text-sm text-amber-600 flex items-center gap-2">
+                          <p className="text-sm text-brand-blue flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
                             All slots are booked. Please select another date.
                           </p>
@@ -582,7 +582,7 @@ export default function Appointment() {
                 <Button
                   type="submit"
                   disabled={isSubmitting || !formData.branch || !formData.name || !formData.phone || !formData.service || !formData.date || !isWeekday(formData.date) || !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) || !selectedSlot}
-                  className="w-full h-12 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white text-lg"
+                  className="w-full h-12 bg-brand-blue hover:bg-brand-blue/90 text-white text-lg"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
