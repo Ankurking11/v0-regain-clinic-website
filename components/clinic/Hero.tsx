@@ -84,8 +84,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                variant="outline"
-                className="border-white/30 text-white bg-transparent hover:bg-white/10 text-lg px-8"
+                className="bg-brand-blue hover:bg-brand-blue/90 text-white text-lg px-8"
               >
                 <Link href="#appointment">
                   <Video className="w-5 h-5 mr-2" />
