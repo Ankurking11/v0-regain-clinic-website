@@ -19,11 +19,8 @@ export const metadata: Metadata = {
   keywords: 'physiotherapy, rehabilitation, Siliguri, stroke recovery, pain management, neurological rehabilitation, Dr. Sanjeeb Bhattacharjee',
   authors: [{ name: 'Regain Clinic & Rehabilitation' }],
   icons: {
-    icon: '/icon.svg',
-    apple: '/apple-icon.png',
-    other: [
-      { rel: 'icon', url: '/icon-dark-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
   openGraph: {
     title: 'Regain Clinic & Rehabilitation | Advanced Physiotherapy in Siliguri',
