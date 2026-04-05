@@ -31,7 +31,7 @@
   --muted-foreground: #1F4E8C;
   --accent: #2E8B2E;
   --accent-foreground: #FFFFFF;
-  --destructive: #2E8B2E;
+  --destructive: #1F4E8C; /* mapped to brand-blue per 3-color constraint */
   --destructive-foreground: #FFFFFF;
   --border: #1F4E8C;
   --input: #1F4E8C;
