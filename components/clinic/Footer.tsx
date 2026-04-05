@@ -123,11 +123,11 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-6">Contact Info</h3>
             <div className="space-y-4 text-white/70">
               <p>
-                <span className="block text-white font-medium">Clinic 1:</span>
+                <span className="block text-white font-medium">REGAIN BABUPARA:</span>
                 Opp Lane, Daffodil School, Babupura Main Road, Siliguri
                 <br />
-                <span className="block text-white font-medium mt-2">Clinic 2:</span>
-                Shiv Mandir, Siliguri
+                <span className="block text-white font-medium mt-2">REGAIN MS SHIVMANDIR:</span>
+                Kadamtala, Opp BSF Camp, Shivmandir, Sainath Road (Below Govindo Residency)
               </p>
               <p>
                 <span className="block text-white font-medium">Phone:</span>

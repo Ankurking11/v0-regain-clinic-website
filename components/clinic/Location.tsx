@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button"
 const contactInfo = [
   {
     icon: MapPin,
-    title: "Clinic 1 Address",
+    title: "REGAIN BABUPARA",
     content: ["Opp Lane, Daffodil School,", "Babupura Main Road, Siliguri"],
   },
   {
     icon: MapPin,
-    title: "Clinic 2 Address",
-    content: ["Shiv Mandir, Siliguri"],
+    title: "REGAIN MS SHIVMANDIR",
+    content: ["Kadamtala, Opp BSF Camp,", "Shivmandir, Sainath Road", "(Below Govindo Residency)"],
   },
   {
     icon: Phone,
@@ -121,7 +121,7 @@ export default function Location() {
               </div>
             </div>
             <p className="text-sm text-brand-blue/70 mb-4">
-              Clinic 1 - Babupura Main Road, Siliguri
+              Clinic 1 - Babupura Main Road, Siliguri (REGAIN BABUPARA)
             </p>
             <Button
               asChild

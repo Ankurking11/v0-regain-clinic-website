@@ -28,8 +28,8 @@ const services = [
 
 // Clinic branches
 const branches = [
-  { id: "babupara", name: "Babupara" },
-  { id: "shivmandir", name: "Shivmandir" },
+  { id: "babupara", name: "REGAIN BABUPARA" },
+  { id: "shivmandir", name: "REGAIN MS SHIVMANDIR" },
 ]
 
 // Branch-specific schedule: which days and time slots
@@ -46,8 +46,10 @@ const branchSchedule: Record<string, { days: number[], slots: string[] }> = {
     }
   },
   shivmandir: {
-    days: [3, 6], // Wed=3, Sat=6
+    days: [0, 3, 6], // Sun=0 (1st & 3rd only), Wed=3, Sat=6
     slots: {
+      // 1st & 3rd Sunday: 11am-12pm
+      0: ["11:00 AM", "11:30 AM"],
       // Wednesday, Saturday: 4pm-5pm
       3: ["4:00 PM", "4:30 PM"],
       6: ["4:00 PM", "4:30 PM"],
@@ -64,10 +66,26 @@ function getTimeSlotsForDay(branchId: string, dayOfWeek: number): string[] {
   return schedule.slots[dayOfWeek] || []
 }
 
-// Check if branch is open on a given day
-function isBranchOpen(branchId: string, dayOfWeek: number): boolean {
+// Returns true if the date falls on the 1st or 3rd Sunday of its month
+function isFirstOrThirdSunday(dateString: string): boolean {
+  if (!dateString) return false
+  const date = new Date(dateString)
+  if (date.getDay() !== 0) return false
+  const weekNumber = Math.ceil(date.getDate() / 7)
+  return weekNumber === 1 || weekNumber === 3
+}
+
+// Check if branch is open on a given date (handles 1st/3rd Sunday logic for shivmandir)
+function isBranchOpen(branchId: string, dateString: string): boolean {
+  if (!dateString) return false
+  const date = new Date(dateString)
+  const dayOfWeek = date.getDay()
   const schedule = branchSchedule[branchId]
-  return schedule ? schedule.days.includes(dayOfWeek) : false
+  if (!schedule || !schedule.days.includes(dayOfWeek)) return false
+  if (branchId === 'shivmandir' && dayOfWeek === 0) {
+    return isFirstOrThirdSunday(dateString)
+  }
+  return true
 }
 
 // Get a label for the time slots based on branch and day
@@ -82,15 +100,15 @@ const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9lxEwo
 
 // Branch display names for UI
 const branchNames: Record<string, string> = {
-  babupara: "Babupara",
-  shivmandir: "Shivmandir",
+  babupara: "REGAIN BABUPARA",
+  shivmandir: "REGAIN MS SHIVMANDIR",
 }
 
 function isWeekday(dateString: string): boolean {
   if (!dateString) return false
   const date = new Date(dateString)
   const day = date.getDay()
-  return day >= 1 && day <= 6 // 1 = Monday, 6 = Saturday
+  return day !== 5 // Friday is closed for all clinics
 }
 
 // Get day of week from date string (0 = Sunday, 1 = Monday, etc.)
@@ -131,8 +149,8 @@ export default function Appointment() {
       const dayOfWeek = getDayOfWeek(formData.date)
       const todaySlots = getTimeSlotsForDay(formData.branch, dayOfWeek)
 
-      // If branch is not open on this day, clear slots
-      if (todaySlots.length === 0) {
+      // If branch is not open on this day (including 1st/3rd Sunday logic), clear slots
+      if (todaySlots.length === 0 || !isBranchOpen(formData.branch, formData.date)) {
         setBookedSlots([])
         setAvailableSlots([])
         setIsLoadingSlots(false)
@@ -185,7 +203,7 @@ export default function Appointment() {
 
     // Check if branch is open on selected day
     const selectedDay = getDayOfWeek(formData.date)
-    if (!isBranchOpen(formData.branch, selectedDay)) {
+    if (!isBranchOpen(formData.branch, formData.date)) {
       alert("The selected branch is not open on this day. Please select another date.")
       return
     }
@@ -299,12 +317,27 @@ export default function Appointment() {
                   <Clock className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-brand-blue mb-2">
-                    Clinic Hours
+                  <h3 className="font-semibold text-brand-blue mb-3">
+                    Appointment Schedule
                   </h3>
-                  <div className="space-y-1 text-brand-blue/70">
-                    <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
-                    <p>Sunday: By Appointment Only</p>
+                  <div className="space-y-3 text-brand-blue/70 text-sm">
+                    <div>
+                      <p className="font-semibold text-brand-blue mb-1">REGAIN BABUPARA</p>
+                      <ul className="space-y-0.5 ml-2">
+                        <li>Monday: 4 PM – 6 PM</li>
+                        <li>Tuesday: 9 AM – 10 AM</li>
+                        <li>Thursday: 9 AM – 10 AM</li>
+                        <li>Saturday: 9 AM – 10 AM</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-brand-blue mb-1">REGAIN MS SHIVMANDIR</p>
+                      <ul className="space-y-0.5 ml-2">
+                        <li>Wednesday: 4 PM – 5 PM</li>
+                        <li>Saturday: 4 PM – 5 PM</li>
+                        <li>1st &amp; 3rd Sunday: 11 AM – 12 PM</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -461,10 +494,10 @@ export default function Appointment() {
                   {formData.date && !isWeekday(formData.date) && (
                     <p className="text-xs text-brand-blue font-medium mt-1 flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
-                      Clinic is closed on this day. Please select Mon-Sat.
+                      No clinic is open on this day. Please select another date.
                     </p>
                   )}
-                  {formData.date && isWeekday(formData.date) && formData.branch && !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) && (
+                  {formData.date && isWeekday(formData.date) && formData.branch && !isBranchOpen(formData.branch, formData.date) && (
                     <p className="text-xs text-brand-blue font-medium mt-1 flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       {branchNames[formData.branch]} is closed on this day. Please select another date.
@@ -506,7 +539,7 @@ export default function Appointment() {
                         ) : (
                           <>
                             {/* Show closed message if branch not open on this day */}
-                            {formData.date && !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) ? (
+                            {formData.date && !isBranchOpen(formData.branch, formData.date) ? (
                               <p className="text-sm text-brand-blue font-medium flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
                                 {branchNames[formData.branch]} is closed on this day. Please select another date.
@@ -557,7 +590,7 @@ export default function Appointment() {
                             )}
                           </>
                         )}
-                        {availableSlots.length === 0 && !isLoadingSlots && formData.date && isBranchOpen(formData.branch, getDayOfWeek(formData.date)) && (
+                        {availableSlots.length === 0 && !isLoadingSlots && formData.date && isBranchOpen(formData.branch, formData.date) && (
                           <p className="text-sm text-brand-blue font-medium flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
                             All slots are booked. Please select another date.
@@ -581,7 +614,7 @@ export default function Appointment() {
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !formData.branch || !formData.name || !formData.phone || !formData.service || !formData.date || !isWeekday(formData.date) || !isBranchOpen(formData.branch, getDayOfWeek(formData.date)) || !selectedSlot}
+                  disabled={isSubmitting || !formData.branch || !formData.name || !formData.phone || !formData.service || !formData.date || !isWeekday(formData.date) || !isBranchOpen(formData.branch, formData.date) || !selectedSlot}
                   className="w-full h-12 bg-brand-blue hover:bg-brand-blue/90 text-white text-lg"
                 >
                   {isSubmitting ? (
