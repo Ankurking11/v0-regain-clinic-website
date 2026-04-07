@@ -190,7 +190,7 @@ export default function Footer() {
               </button>
             </div>
           </div>
-          <p className="text-xs text-white/80 text-center mt-3">
+          <p className="text-xs text-white text-center mt-3">
             Website by{" "}
             <a
               href="https://www.evolvnex.com/"
@@ -201,9 +201,9 @@ export default function Footer() {
               <Image
                 src="/Light_full_logo.png"
                 alt="EvolvNex"
-                width={72}
-                height={20}
-                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+                width={110}
+                height={30}
+                className="inline-block transition-opacity"
               />
             </a>
           </p>
