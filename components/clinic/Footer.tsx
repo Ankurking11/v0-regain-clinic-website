@@ -201,8 +201,8 @@ export default function Footer() {
               <Image
                 src="/Light_full_logo.png"
                 alt="EvolvNex"
-                width={72}
-                height={20}
+                width={100}
+                height={28}
                 className="inline-block opacity-80 hover:opacity-100 transition-opacity"
               />
             </a>

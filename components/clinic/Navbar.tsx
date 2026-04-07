@@ -26,7 +26,7 @@ export default function Navbar() {
     <>
       {/* Announcement Bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-8 bg-brand-blue/5 border-b border-brand-blue/10 flex items-center justify-center">
-        <p className="text-xs text-brand-blue/70 text-center">
+        <p className="text-xs text-brand-blue text-center">
           Built by{" "}
           <a
             href="https://www.evolvnex.com/"
@@ -65,7 +65,7 @@ export default function Navbar() {
                 <span className="text-2xl font-bold text-brand-blue">
                   ReGain MS Clinic
                 </span>
-                <span className="text-xs text-brand-blue/60 tracking-wider">
+                <span className="text-xs text-brand-blue tracking-wider">
                   Touching Mobility
                 </span>
               </div>
@@ -147,7 +147,7 @@ export default function Navbar() {
                     <span className="text-xl font-bold text-brand-blue">
                       ReGain MS Clinic
                     </span>
-                    <span className="text-xs text-brand-blue/60">
+                    <span className="text-xs text-brand-blue">
                       Touching Mobility
                     </span>
                   </div>
