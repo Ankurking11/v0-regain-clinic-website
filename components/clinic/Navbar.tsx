@@ -41,8 +41,8 @@ export default function Navbar() {
               <Image
                 src="/favicon.png"
                 alt="ReGain MS Clinic Logo"
-                width={48}
-                height={48}
+                width={40}
+                height={40}
                 className="rounded-full"
               />
               <div className="flex flex-col">

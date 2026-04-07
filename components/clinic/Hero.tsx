@@ -38,7 +38,7 @@ export default function Hero() {
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-balance">
               Advanced Physiotherapy & Stroke Rehabilitation in{" "}
-              <span className="text-brand-green">
+              <span className="text-brand-green siliguri-stroke">
                 Siliguri
               </span>
             </h1>

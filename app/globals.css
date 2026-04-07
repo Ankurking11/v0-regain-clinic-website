@@ -134,3 +134,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.siliguri-stroke {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
