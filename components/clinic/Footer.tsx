@@ -163,12 +163,29 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/70 text-sm text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <p className="text-white/70 text-sm text-center md:text-left flex-1">
               &copy; {new Date().getFullYear()} ReGain MS Clinic Physiotherapy.
               All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
+            <p className="text-xs text-white/80 text-center flex-1">
+              Website by{" "}
+              <a
+                href="https://www.evolvnex.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 hover:underline hover:text-white transition-colors"
+              >
+                <Image
+                  src="/Light_full_logo.png"
+                  alt="EvolvNex"
+                  width={110}
+                  height={30}
+                  className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+                />
+              </a>
+            </p>
+            <div className="flex items-center justify-end gap-6 flex-1">
               <Link
                 href="#"
                 className="text-sm text-white/70 hover:text-brand-green transition-colors"
@@ -190,23 +207,6 @@ export default function Footer() {
               </button>
             </div>
           </div>
-          <p className="text-xs text-white/80 text-center mt-3">
-            Website by{" "}
-            <a
-              href="https://www.evolvnex.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 hover:underline hover:text-white transition-colors"
-            >
-              <Image
-                src="/Light_full_logo.png"
-                alt="EvolvNex"
-                width={110}
-                height={30}
-                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </a>
-          </p>
         </div>
       </div>
     </footer>
