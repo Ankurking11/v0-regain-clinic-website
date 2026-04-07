@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ChevronUp, Facebook, Instagram, Youtube } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 const quickLinks = [
   { name: "Home", href: "#" },
@@ -189,15 +190,21 @@ export default function Footer() {
               </button>
             </div>
           </div>
-          <p className="text-xs text-white/50 text-center mt-3">
+          <p className="text-xs text-white/80 text-center mt-3">
             Website by{" "}
             <a
               href="https://www.evolvnex.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline hover:text-white/70 transition-colors"
+              className="inline-flex items-center gap-1.5 hover:underline hover:text-white transition-colors"
             >
-              EvolvNex
+              <Image
+                src="/Light_full_logo.png"
+                alt="EvolvNex"
+                width={72}
+                height={20}
+                className="inline-block opacity-80 hover:opacity-100 transition-opacity"
+              />
             </a>
           </p>
         </div>
