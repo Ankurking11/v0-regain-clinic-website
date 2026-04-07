@@ -136,6 +136,7 @@
 }
 
 .siliguri-stroke {
-  -webkit-text-stroke: 1px var(--brand-green);
-  color: transparent;
+  color: var(--brand-green);
+  -webkit-text-stroke: 1px white;
+  text-shadow: 0 0 1px white;
 }
