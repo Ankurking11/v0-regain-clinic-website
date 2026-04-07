@@ -36,18 +36,6 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green/20 border border-brand-green/30 rounded-full mb-6"
-            >
-              <span className="w-2 h-2 bg-brand-green rounded-full animate-pulse" />
-              <span className="text-white text-sm font-medium">
-                Now Accepting New Patients
-              </span>
-            </motion.div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-balance">
               Advanced Physiotherapy & Stroke Rehabilitation in{" "}
               <span className="text-brand-green">
@@ -74,10 +62,10 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-brand-green hover:bg-brand-green/90 text-white text-lg px-8"
+                className="bg-brand-green text-white text-lg px-8 transition-all duration-300 hover:bg-brand-green/90 hover:scale-105 hover:shadow-md hover:brightness-110"
               >
                 <a href="tel:+919876543210">
-                  <Phone className="w-5 h-5 mr-2" />
+                  <Phone className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:translate-x-0.5" />
                   Call Now
                 </a>
               </Button>
