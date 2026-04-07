@@ -195,7 +195,7 @@ export default function Footer() {
               href="https://www.evolvnex.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline hover:text-white/70 transition-opacity"
+              className="hover:underline hover:text-white/70 transition-colors"
             >
               EvolvNex
             </a>
