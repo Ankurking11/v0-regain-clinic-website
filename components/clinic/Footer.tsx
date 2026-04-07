@@ -189,7 +189,7 @@ export default function Footer() {
               </button>
             </div>
           </div>
-          <p className="text-xs text-white/50 text-center mt-3">
+          <p className="text-xs text-white/80 text-center mt-3">
             Website by{" "}
             <a
               href="https://www.evolvnex.com/"
