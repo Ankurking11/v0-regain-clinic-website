@@ -62,7 +62,7 @@ export default function Hero() {
               <Button
                 asChild
                 size="lg"
-                className="bg-brand-green text-white text-lg px-8 transition-all duration-300 hover:bg-brand-green/90 hover:scale-105 hover:shadow-md hover:brightness-110"
+                className="group bg-brand-green text-white text-lg px-8 transition-all duration-300 hover:bg-brand-green/90 hover:scale-105 hover:shadow-md hover:brightness-110"
               >
                 <a href="tel:+919876543210">
                   <Phone className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:translate-x-0.5" />
