@@ -24,11 +24,27 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Announcement Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-8 bg-brand-blue/5 border-b border-brand-blue/10 flex items-center justify-center">
+        <p className="text-xs text-brand-blue/70 text-center">
+          Built by{" "}
+          <a
+            href="https://www.evolvnex.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium hover:underline"
+          >
+            EvolvNex
+          </a>
+          {" "}— High-converting websites for clinics
+        </p>
+      </div>
+
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-brand-white shadow-lg transition-all duration-300"
+        className="fixed top-8 left-0 right-0 z-50 bg-brand-white shadow-lg transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto pl-2 pr-4 sm:pl-3 sm:pr-6 lg:pl-4 lg:pr-8">
           <div className="flex items-center justify-between h-20">

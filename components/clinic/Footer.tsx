@@ -189,6 +189,17 @@ export default function Footer() {
               </button>
             </div>
           </div>
+          <p className="text-xs text-white/50 text-center mt-3">
+            Website by{" "}
+            <a
+              href="https://www.evolvnex.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline hover:text-white/70 transition-opacity"
+            >
+              EvolvNex
+            </a>
+          </p>
         </div>
       </div>
     </footer>
