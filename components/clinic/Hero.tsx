@@ -37,10 +37,7 @@ export default function Hero() {
             className="text-white"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-balance">
-              Advanced Physiotherapy & Stroke Rehabilitation in{" "}
-              <span className="text-brand-green siliguri-stroke">
-                Siliguri
-              </span>
+              Advanced Physiotherapy & Stroke Rehabilitation in Siliguri
             </h1>
 
             <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-xl">
