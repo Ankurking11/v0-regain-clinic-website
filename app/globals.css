@@ -136,6 +136,6 @@
 }
 
 .siliguri-stroke {
-  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-stroke: 1px var(--brand-green);
   color: transparent;
 }
