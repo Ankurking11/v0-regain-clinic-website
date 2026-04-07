@@ -26,7 +26,7 @@ export default function Navbar() {
     <>
       {/* Announcement Bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-8 bg-brand-blue/5 border-b border-brand-blue/10 flex items-center justify-center">
-        <p className="text-xs text-brand-blue/70 text-center">
+        <p className="text-xs text-brand-blue text-center">
           Built by{" "}
           <a
             href="https://www.evolvnex.com/"
