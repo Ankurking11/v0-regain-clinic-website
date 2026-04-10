@@ -3,7 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase-admin'
 
 const APPOINTMENTS_TABLE = process.env.SUPABASE_APPOINTMENTS_TABLE || 'appointments'
 const DEFAULT_CLIENT_ID = process.env.SUPABASE_DEFAULT_CLIENT_ID
-const BOOKED_STATUS = 'booked'
+const BOOKED_STATUS = 'tentative'
 const SLOT_DURATION_MINUTES = 30
 
 type AppointmentRequestBody = {
