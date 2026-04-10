@@ -26,14 +26,36 @@ const services = [
   "General Consultation",
 ]
 
+type BranchId = "babupara" | "shivmandir"
+type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
+type AppointmentFormData = {
+  branch: BranchId | ""
+  name: string
+  phone: string
+  email: string
+  service: string
+  date: string
+  message: string
+}
+
+type BookedSlotsResponse = {
+  slots?: string[]
+}
+
 // Clinic branches
 const branches = [
   { id: "babupara", name: "REGAIN BABUPARA" },
   { id: "shivmandir", name: "REGAIN MS SHIVMANDIR" },
-]
+] as const
+
+type BranchSchedule = {
+  days: DayOfWeek[]
+  slots: Partial<Record<DayOfWeek, string[]>>
+}
 
 // Branch-specific schedule: which days and time slots
-const branchSchedule: Record<string, { days: number[], slots: string[] }> = {
+const branchSchedule: Record<BranchId, BranchSchedule> = {
   babupara: {
     days: [1, 2, 4, 6], // Mon=1, Tue=2, Thu=4, Sat=6
     slots: {
@@ -58,7 +80,7 @@ const branchSchedule: Record<string, { days: number[], slots: string[] }> = {
 }
 
 // Get available time slots for a branch and day of week
-function getTimeSlotsForDay(branchId: string, dayOfWeek: number): string[] {
+function getTimeSlotsForDay(branchId: BranchId, dayOfWeek: DayOfWeek): string[] {
   const schedule = branchSchedule[branchId]
   if (!schedule || !schedule.days.includes(dayOfWeek)) {
     return []
@@ -76,10 +98,10 @@ function isFirstOrThirdSunday(dateString: string): boolean {
 }
 
 // Check if branch is open on a given date (handles 1st/3rd Sunday logic for shivmandir)
-function isBranchOpen(branchId: string, dateString: string): boolean {
+function isBranchOpen(branchId: BranchId, dateString: string): boolean {
   if (!dateString) return false
   const date = new Date(dateString)
-  const dayOfWeek = date.getDay()
+  const dayOfWeek = date.getDay() as DayOfWeek
   const schedule = branchSchedule[branchId]
   if (!schedule || !schedule.days.includes(dayOfWeek)) return false
   if (branchId === 'shivmandir' && dayOfWeek === 0) {
@@ -89,17 +111,14 @@ function isBranchOpen(branchId: string, dateString: string): boolean {
 }
 
 // Get a label for the time slots based on branch and day
-function getDaySlotLabel(branchId: string, dayOfWeek: number): string {
+function getDaySlotLabel(dayOfWeek: DayOfWeek): string {
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const dayName = dayNames[dayOfWeek] || ''
   return dayName
 }
 
-// Google Apps Script Web App URL for saving appointments to Google Sheets
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9lxEwoviV5aXpdsYf4hO92yYf5bHhS75ixuR1SvONrfrqNbMPiZTauqayqZgst4wD/exec"
-
 // Branch display names for UI
-const branchNames: Record<string, string> = {
+const branchNames: Record<BranchId, string> = {
   babupara: "REGAIN BABUPARA",
   shivmandir: "REGAIN MS SHIVMANDIR",
 }
@@ -112,9 +131,9 @@ function isWeekday(dateString: string): boolean {
 }
 
 // Get day of week from date string (0 = Sunday, 1 = Monday, etc.)
-function getDayOfWeek(dateString: string): number {
+function getDayOfWeek(dateString: string): DayOfWeek {
   const date = new Date(dateString)
-  return date.getDay()
+  return date.getDay() as DayOfWeek
 }
 
 function getMinDate(): string {
@@ -126,72 +145,87 @@ export default function Appointment() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoadingSlots, setIsLoadingSlots] = useState(false)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AppointmentFormData>({
     branch: "",
     name: "",
     phone: "",
     email: "",
     service: "",
     date: "",
-    time: "",
     message: "",
   })
   const [availableSlots, setAvailableSlots] = useState<string[]>([])
   const [bookedSlots, setBookedSlots] = useState<string[]>([])
   const [selectedSlot, setSelectedSlot] = useState("")
 
-  // Fetch booked slots from Google Sheets when date changes
+  // Fetch booked slots when branch/date changes.
   useEffect(() => {
-    if (formData.date && formData.branch && isWeekday(formData.date)) {
-      setIsLoadingSlots(true)
-
-      // Get time slots for this branch on this day
-      const dayOfWeek = getDayOfWeek(formData.date)
-      const todaySlots = getTimeSlotsForDay(formData.branch, dayOfWeek)
-
-      // If branch is not open on this day (including 1st/3rd Sunday logic), clear slots
-      if (todaySlots.length === 0 || !isBranchOpen(formData.branch, formData.date)) {
-        setBookedSlots([])
-        setAvailableSlots([])
-        setIsLoadingSlots(false)
-        return
-      }
-
-      // Fetch booked slots for the selected date and branch from our API
-      fetch(`/api/appointments?action=getBookedSlots&date=${formData.date}&branch=${formData.branch}`)
-        .then(res => {
-          if (!res.ok) throw new Error('Network response was not ok')
-          return res.json()
-        })
-        .then(data => {
-          console.log('Fetched booked slots:', data)
-          if (data.slots && Array.isArray(data.slots)) {
-            setBookedSlots(data.slots)
-            // Available slots = branch's slots for this day minus booked ones
-            setAvailableSlots(todaySlots.filter(slot => !data.slots.includes(slot)))
-          } else {
-            setBookedSlots([])
-            setAvailableSlots(todaySlots)
-          }
-        })
-        .catch(err => {
-          console.error('Error fetching booked slots:', err)
-          setBookedSlots([])
-          setAvailableSlots(todaySlots)
-        })
-        .finally(() => {
-          setIsLoadingSlots(false)
-        })
-    } else {
+    const branch = formData.branch
+    if (!formData.date || !branch || !isWeekday(formData.date)) {
       setBookedSlots([])
       setAvailableSlots([])
+      return
+    }
+
+    const dayOfWeek = getDayOfWeek(formData.date)
+    const todaySlots = getTimeSlotsForDay(branch, dayOfWeek)
+
+    if (todaySlots.length === 0 || !isBranchOpen(branch, formData.date)) {
+      setBookedSlots([])
+      setAvailableSlots([])
+      return
+    }
+
+    let isCancelled = false
+    const controller = new AbortController()
+
+    async function loadBookedSlots() {
+      setIsLoadingSlots(true)
+      try {
+        const params = new URLSearchParams({
+          action: 'getBookedSlots',
+          date: formData.date,
+          branch,
+        })
+
+        const response = await fetch(`/api/appointments?${params.toString()}`, {
+          signal: controller.signal,
+        })
+        if (!response.ok) throw new Error('Failed to fetch booked slots')
+
+        const data = (await response.json()) as BookedSlotsResponse
+        const slots = Array.isArray(data.slots) ? data.slots : []
+
+        if (isCancelled) return
+
+        setBookedSlots(slots)
+        setAvailableSlots(todaySlots.filter((slot) => !slots.includes(slot)))
+      } catch (error) {
+        if (isCancelled) return
+        console.error('[v0] Failed to fetch booked slots:', error)
+        setBookedSlots([])
+        setAvailableSlots(todaySlots)
+      } finally {
+        if (!isCancelled) {
+          setIsLoadingSlots(false)
+        }
+      }
+    }
+
+    loadBookedSlots()
+
+    return () => {
+      isCancelled = true
+      controller.abort()
     }
   }, [formData.date, formData.branch])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.branch) {
+    const branch = formData.branch
+
+    if (!branch) {
       alert("Please select a clinic branch")
       return
     }
@@ -202,8 +236,7 @@ export default function Appointment() {
     }
 
     // Check if branch is open on selected day
-    const selectedDay = getDayOfWeek(formData.date)
-    if (!isBranchOpen(formData.branch, formData.date)) {
+    if (!isBranchOpen(branch, formData.date)) {
       alert("The selected branch is not open on this day. Please select another date.")
       return
     }
@@ -225,31 +258,17 @@ export default function Appointment() {
 
     setIsSubmitting(true)
 
-    const bookingData = {
-      ...formData,
-      time: selectedSlot,
-      timestamp: new Date().toISOString(),
-      status: "pending",
-    }
-
     try {
-      // Prepare data for API
       const bookingPayload = {
-        branch: bookingData.branch,
-        name: bookingData.name,
-        phone: bookingData.phone,
-        email: bookingData.email,
-        service: bookingData.service,
-        date: bookingData.date,
-        time: bookingData.time,
-        message: bookingData.message,
-        timestamp: bookingData.timestamp,
-        status: bookingData.status
+        branch,
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service: formData.service,
+        date: formData.date,
+        time: selectedSlot,
+        message: formData.message,
       }
-
-      console.log('[v0] Sending booking to API:', bookingPayload)
-
-      // Send to our API endpoint
       const response = await fetch('/api/appointments', {
         method: "POST",
         headers: {
@@ -258,19 +277,17 @@ export default function Appointment() {
         body: JSON.stringify(bookingPayload),
       })
 
-      console.log('[v0] API response status:', response.status)
       const result = await response.json()
-      console.log('[v0] API result:', result)
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to submit appointment')
+        throw new Error(result.error || result.message || 'Failed to submit appointment')
       }
 
-      console.log("[v0] Booking saved successfully:", bookingData)
       setIsSubmitted(true)
     } catch (error) {
       console.error("[v0] Error saving appointment:", error)
-      alert("Failed to submit appointment. Please try again.")
+      const message = error instanceof Error ? error.message : "Failed to submit appointment. Please try again."
+      alert(message)
     } finally {
       setIsSubmitting(false)
     }
@@ -361,7 +378,7 @@ export default function Appointment() {
             </div>
 
             <a
-              href="https://wa.me/919876543210?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20Regain%20Clinic."
+              href="https://wa.me/918250588279?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20ReGain%20MS%20Clinic."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-3 w-full py-4 bg-brand-green hover:bg-brand-green/90 text-white rounded-xl font-semibold transition-colors"
@@ -577,7 +594,7 @@ export default function Appointment() {
                                   <p className="text-brand-blue/60">
                                     {formData.date && (
                                       <span>
-                                        {branchNames[formData.branch]} - {getDaySlotLabel(formData.branch, getDayOfWeek(formData.date))}
+                                        {formData.branch ? branchNames[formData.branch] : ''} - {getDaySlotLabel(getDayOfWeek(formData.date))}
                                       </span>
                                     )}
                                   </p>
