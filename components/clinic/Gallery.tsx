@@ -7,58 +7,40 @@ import { X, ZoomIn } from "lucide-react"
 
 const galleryItems = [
   {
-    src: "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=800&q=80",
+    src: "/images/gallery/gallery-01.jpg",
     alt: "Physiotherapy treatment room",
     category: "Clinic",
     caption: "Modern Treatment Room",
   },
   {
-    src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+    src: "/images/gallery/gallery-02.jpg",
     alt: "Clinic reception area",
     category: "Clinic",
     caption: "Reception & Waiting Area",
   },
   {
-    src: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80",
+    src: "/images/gallery/gallery-03.jpg",
     alt: "Dr. Sanjeeb Bhattacharjee",
     category: "Staff",
     caption: "Dr. Sanjeeb Bhattacharjee",
   },
   {
-    src: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80",
+    src: "/images/gallery/gallery-04.jpg",
     alt: "Physiotherapy session",
     category: "Clinic",
     caption: "Rehabilitation Session",
   },
   {
-    src: "https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=800&q=80",
+    src: "/images/gallery/gallery-05.jpg",
     alt: "Physiotherapy equipment",
     category: "Clinic",
     caption: "Advanced Equipment",
   },
   {
-    src: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=800&q=80",
+    src: "/images/gallery/gallery-06.jpg",
     alt: "Staff team",
     category: "Staff",
     caption: "Our Care Team",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=800&q=80",
-    alt: "Exercise therapy area",
-    category: "Clinic",
-    caption: "Exercise Therapy Zone",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80",
-    alt: "Doctor consultation",
-    category: "Staff",
-    caption: "Patient Consultation",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80",
-    alt: "Clinic interior",
-    category: "Clinic",
-    caption: "Comfortable Clinic Environment",
   },
 ]
 
