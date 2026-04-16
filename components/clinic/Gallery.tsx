@@ -123,12 +123,7 @@ export default function Gallery() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/50 transition-all duration-300 flex items-end">
-                  <div className="w-full p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <p className="text-white font-semibold">{item.caption}</p>
-                    <span className="text-white/70 text-sm">{item.category}</span>
-                  </div>
-                </div>
+                <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/25 transition-all duration-300" />
                 {/* Zoom Icon */}
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">

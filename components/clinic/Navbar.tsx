@@ -57,14 +57,14 @@ export default function Navbar() {
             >
               <Image
                 src="/favicon.png"
-                alt="ReGain MS Clinic Logo"
+                alt="ReGain Clinic Logo"
                 width={40}
                 height={40}
                 className="rounded-full"
               />
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-brand-blue">
-                  ReGain MS Clinic
+                  ReGain Clinic
                 </span>
                 <span className="text-xs text-brand-blue/60 tracking-wider">
                   Touching Mobility
@@ -139,14 +139,14 @@ export default function Navbar() {
                 >
                   <Image
                     src="/favicon.png"
-                    alt="ReGain MS Clinic Logo"
+                    alt="ReGain Clinic Logo"
                     width={40}
                     height={40}
                     className="rounded-full"
                   />
                   <div className="flex flex-col">
                     <span className="text-xl font-bold text-brand-blue">
-                      ReGain MS Clinic
+                      ReGain Clinic
                     </span>
                     <span className="text-xs text-brand-blue/60">
                       Touching Mobility
