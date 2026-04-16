@@ -9,37 +9,37 @@ const galleryItems = [
   {
     src: "/images/gallery/gallery-01.jpg",
     alt: "Physiotherapy treatment room",
-    category: "Clinic",
+    category: "Staff",
     caption: "Modern Treatment Room",
   },
   {
     src: "/images/gallery/gallery-02.jpg",
     alt: "Clinic reception area",
-    category: "Clinic",
+    category: "Staff",
     caption: "Reception & Waiting Area",
   },
   {
     src: "/images/gallery/gallery-03.jpg",
     alt: "Dr. Sanjeeb Bhattacharjee",
-    category: "Staff",
+    category: "Clinic",
     caption: "Dr. Sanjeeb Bhattacharjee",
   },
   {
     src: "/images/gallery/gallery-04.jpg",
     alt: "Physiotherapy session",
-    category: "Clinic",
+    category: "Staff",
     caption: "Rehabilitation Session",
   },
   {
     src: "/images/gallery/gallery-05.jpg",
     alt: "Physiotherapy equipment",
-    category: "Clinic",
+    category: "Staff",
     caption: "Advanced Equipment",
   },
   {
     src: "/images/gallery/gallery-06.jpg",
     alt: "Staff team",
-    category: "Staff",
+    category: "Clinic",
     caption: "Our Care Team",
   },
 ]
