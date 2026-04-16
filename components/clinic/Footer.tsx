@@ -46,7 +46,7 @@ export default function Footer() {
           >
             <Link href="#" className="inline-block mb-4">
               <span className="text-2xl font-bold text-white">
-                ReGain MS Clinic
+                ReGain Clinic
               </span>
               <p className="text-sm text-white/70 mt-1">Touching Mobility</p>
             </Link>
@@ -165,7 +165,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center gap-4">
             <p className="text-white/70 text-sm text-center md:text-left flex-1">
-              &copy; {new Date().getFullYear()} ReGain MS Clinic Physiotherapy.
+              &copy; {new Date().getFullYear()} ReGain Clinic Physiotherapy.
               All rights reserved.
             </p>
             <p className="text-xs text-white/80 text-center flex-1">

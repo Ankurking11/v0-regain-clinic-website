@@ -45,7 +45,7 @@ export default function About() {
                 src="/images/doctor/doctor-profile.jpg"
                 alt="Dr. Sanjeeb Bhattacharjee"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
               />
               <div className="absolute inset-0 bg-brand-blue/30" />
               
@@ -55,10 +55,10 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="absolute top-6 right-6 bg-brand-blue text-white px-6 py-3 rounded-full shadow-xl"
+                className="absolute top-6 right-6 bg-brand-blue text-white px-4 py-2 rounded-2xl shadow-xl"
               >
-                <span className="text-2xl font-bold">15+</span>
-                <span className="text-sm ml-1">Years Experience</span>
+                <span className="text-xl font-bold">15+</span>
+                <span className="text-xs ml-1">Years Experience</span>
               </motion.div>
             </div>
 
