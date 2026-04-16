@@ -5,36 +5,71 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Phone, Menu, X, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 const navLinks = [
   { name: "Home", href: "#" },
   { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
   { name: "Facilities", href: "#facilities" },
+  { name: "Gallery", href: "#gallery" },
   { name: "Contact", href: "#location" },
 ]
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
     <>
+      {/* Announcement Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-8 bg-brand-blue/5 border-b border-brand-blue/10 flex items-center justify-center">
+        <p className="text-xs text-brand-blue text-center">
+          Built by{" "}
+          <a
+            href="https://www.evolvnex.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium hover:underline"
+          >
+            EvolvNex
+          </a>
+          {" "}— High-converting websites for clinics
+        </p>
+      </div>
+
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-brand-white shadow-lg transition-all duration-300"
+        className="fixed top-8 left-0 right-0 z-50 bg-brand-white shadow-lg transition-all duration-300"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto pl-2 pr-4 sm:pl-3 sm:pr-6 lg:pl-4 lg:pr-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="#" className="flex flex-col">
-              <span className="text-2xl font-bold text-brand-blue">
-                ReGain MS Clinic
-              </span>
-              <span className="text-xs text-brand-blue/60 tracking-wider">
-                Touching Mobility
-              </span>
+            <Link
+              href="#"
+              onClick={(e) => { e.preventDefault(); handleScrollToTop(); }}
+              className="flex items-center gap-3 cursor-pointer"
+            >
+              <Image
+                src="/favicon.png"
+                alt="ReGain Clinic Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-brand-blue">
+                  ReGain Clinic
+                </span>
+                <span className="text-xs text-brand-blue/60 tracking-wider">
+                  Touching Mobility
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -61,7 +96,7 @@ export default function Navbar() {
               </a>
               <Button
                 asChild
-                className="bg-brand-blue hover:bg-brand-blue/90 text-white"
+                className="bg-brand-blue/10 text-brand-blue border border-brand-blue/30 transition-all duration-300 hover:bg-brand-blue hover:text-white hover:scale-105"
               >
                 <Link href="#appointment">
                   <Calendar className="w-4 h-4 mr-2" />
@@ -98,14 +133,26 @@ export default function Navbar() {
           >
             <div className="flex flex-col h-full p-6">
               <div className="flex justify-between items-center mb-8">
-                <div className="flex flex-col">
-                  <span className="text-xl font-bold text-brand-blue">
-                    ReGain MS Clinic
-                  </span>
-                  <span className="text-xs text-brand-blue/60">
-                    Touching Mobility
-                  </span>
-                </div>
+                <button
+                  onClick={() => { handleScrollToTop(); setIsMobileMenuOpen(false); }}
+                  className="flex items-center gap-3 cursor-pointer text-left"
+                >
+                  <Image
+                    src="/favicon.png"
+                    alt="ReGain Clinic Logo"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-xl font-bold text-brand-blue">
+                      ReGain Clinic
+                    </span>
+                    <span className="text-xs text-brand-blue/60">
+                      Touching Mobility
+                    </span>
+                  </div>
+                </button>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 text-brand-blue"
@@ -146,7 +193,7 @@ export default function Navbar() {
                 </a>
                 <Button
                   asChild
-                  className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
+                  className="w-full bg-brand-blue/10 text-brand-blue border border-brand-blue/30 transition-all duration-300 hover:bg-brand-blue hover:text-white hover:scale-105"
                 >
                   <Link
                     href="#appointment"

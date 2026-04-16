@@ -5,6 +5,7 @@ import Services from "@/components/clinic/Services"
 import Facilities from "@/components/clinic/Facilities"
 import WhyChooseUs from "@/components/clinic/WhyChooseUs"
 import Testimonials from "@/components/clinic/Testimonials"
+import Gallery from "@/components/clinic/Gallery"
 import Appointment from "@/components/clinic/Appointment"
 import Location from "@/components/clinic/Location"
 import Footer from "@/components/clinic/Footer"
@@ -19,6 +20,7 @@ export default function Home() {
       <Services />
       <Facilities />
       <WhyChooseUs />
+      <Gallery />
       <Testimonials />
       <Appointment />
       <Location />

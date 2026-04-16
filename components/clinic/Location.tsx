@@ -1,8 +1,28 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react"
+import { MapPin, Phone, Mail, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+const clinics = {
+  babupara: {
+    name: "REGAIN BABUPARA",
+    lat: 26.702661461668256,
+    lng: 88.42478538837976,
+    mapLink: "https://maps.app.goo.gl/tKq4MrHoarQKMSSH8",
+    embedSrc: "https://maps.google.com/maps?q=26.702661461668256,88.42478538837976&z=17&output=embed",
+    address: "Opp Lane, Daffodil School, Babupura Main Road, Siliguri",
+  },
+  shivmandir: {
+    name: "REGAIN MS SHIVMANDIR",
+    lat: 26.706895821283673,
+    lng: 88.36393843562371,
+    mapLink: "https://maps.app.goo.gl/NuvdVfPdu7HfFeY18",
+    embedSrc: "https://maps.google.com/maps?q=26.706895821283673,88.36393843562371&z=17&output=embed",
+    address: "Kadamtala, Opp BSF Camp, Shivmandir, Sainath Road (Below Govindo Residency)",
+  },
+}
 
 const contactInfo = [
   {
@@ -29,7 +49,12 @@ const contactInfo = [
   },
 ]
 
+type ClinicKey = keyof typeof clinics
+
 export default function Location() {
+  const [selectedClinic, setSelectedClinic] = useState<ClinicKey>("babupara")
+  const clinic = clinics[selectedClinic]
+
   return (
     <section id="location" className="py-24 bg-brand-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,6 +111,25 @@ export default function Location() {
           ))}
         </div>
 
+        {/* Clinic Selector */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex rounded-xl border border-brand-blue/20 overflow-hidden bg-white shadow-sm">
+            {(Object.keys(clinics) as ClinicKey[]).map((key) => (
+              <button
+                key={key}
+                onClick={() => setSelectedClinic(key)}
+                className={`px-5 py-2.5 text-sm font-medium transition-colors ${
+                  selectedClinic === key
+                    ? "bg-brand-blue text-white"
+                    : "bg-white text-brand-blue hover:bg-brand-blue/5"
+                }`}
+              >
+                {clinics[key].name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Map Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -95,64 +139,60 @@ export default function Location() {
         >
           <div className="aspect-[16/9] lg:aspect-[21/9]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57045.38831695825!2d88.39776271304695!3d26.71725698058567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e441615c7b7c11%3A0x6b38fb08ba4ae39f!2sSiliguri%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1703657600000!5m2!1sen!2sin"
+              key={selectedClinic}
+              src={clinic.embedSrc}
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Regain Clinic Location"
+              title={`${clinic.name} Location`}
             />
           </div>
 
           {/* Floating Card */}
-          <div className="absolute top-6 left-6 bg-white rounded-2xl p-5 shadow-xl max-w-xs hidden sm:block">
+          <div className="absolute top-6 left-6 z-10 bg-white rounded-2xl p-5 shadow-xl max-w-xs hidden sm:block">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center flex-shrink-0">
                 <MapPin className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-brand-blue">ReGain MS Clinic</h3>
-                <span className="inline-flex items-center gap-1 text-sm text-brand-green">
-                  <span className="w-2 h-2 bg-brand-green rounded-full animate-pulse" />
-                  Open Now
-                </span>
+                <h3 className="font-semibold text-brand-blue">{clinic.name}</h3>
+
               </div>
             </div>
-            <p className="text-sm text-brand-blue/70 mb-4">
-              Clinic 1 - Babupura Main Road, Siliguri (REGAIN BABUPARA)
-            </p>
+            <p className="text-sm text-brand-blue/70 mb-4">{clinic.address}</p>
             <Button
               asChild
               size="sm"
               className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
             >
               <a
-                href="https://www.google.com/maps/dir/?api=1&destination=Siliguri,+West+Bengal"
+                href={clinic.mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Navigation className="w-4 h-4 mr-2" />
-                Get Directions
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Open in Google Maps
               </a>
             </Button>
           </div>
         </motion.div>
 
-        {/* Mobile Get Directions */}
+        {/* Mobile Open in Google Maps */}
         <div className="mt-6 sm:hidden">
           <Button
             asChild
             className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
           >
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Siliguri,+West+Bengal"
+              href={clinic.mapLink}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Navigation className="w-4 h-4 mr-2" />
-              Get Directions
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Open in Google Maps
             </a>
           </Button>
         </div>
@@ -160,3 +200,4 @@ export default function Location() {
     </section>
   )
 }
+
