@@ -42,7 +42,7 @@ export default function About() {
           >
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80"
+                src="/images/doctor/doctor-profile.jpg"
                 alt="Dr. Sanjeeb Bhattacharjee"
                 fill
                 className="object-cover"
