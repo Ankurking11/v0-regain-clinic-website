@@ -42,6 +42,24 @@ const galleryItems = [
     category: "Clinic",
     caption: "Our Care Team",
   },
+  {
+    src: "/images/gallery/gallery-07.jpeg",
+    alt: "Staff team",
+    category: "Clinic",
+    caption: "Our Recption",
+  },
+  {
+    src: "/images/gallery/gallery-08.jpeg",
+    alt: "Staff team",
+    category: "Clinic",
+    caption: "Rehabilitation Session",
+  },
+  {
+    src: "/images/gallery/gallery-09.jpeg",
+    alt: "Staff team",
+    category: "Clinic",
+    caption: "Rehabilitation Session",
+  },
 ]
 
 const categories = ["All", "Clinic", "Staff"]
