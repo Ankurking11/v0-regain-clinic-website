@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   description: 'Expert physiotherapy care for pain management, stroke rehabilitation, neurological conditions, and post-surgical recovery. Dr. Sanjeeb Bhattacharjee - 15+ years experience in Siliguri, West Bengal.',
   keywords: 'physiotherapy, rehabilitation, Siliguri, stroke recovery, pain management, neurological rehabilitation, Dr. Sanjeeb Bhattacharjee',
   authors: [{ name: 'Regain Clinic & Rehabilitation' }],
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     title: 'Regain Clinic & Rehabilitation | Advanced Physiotherapy in Siliguri',
     description: 'Expert physiotherapy care for pain management, stroke rehabilitation, and post-surgical recovery.',

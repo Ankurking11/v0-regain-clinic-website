@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Star, Quote } from "lucide-react"
-import Image from "next/image"
+import { Star, Quote, User } from "lucide-react"
 
 const testimonials = [
   {
@@ -10,7 +9,6 @@ const testimonials = [
     location: "Siliguri",
     condition: "Post Stroke Recovery",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
     review:
       "After my stroke, I thought I would never walk again. Dr. Bhattacharjee's expertise and dedicated care helped me regain my mobility. His personalized approach made all the difference.",
   },
@@ -19,7 +17,6 @@ const testimonials = [
     location: "Darjeeling",
     condition: "Knee Replacement Rehab",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
     review:
       "The post-surgery rehabilitation at Regain Clinic was exceptional. Within weeks, I was able to climb stairs again. The facilities are modern and the staff is incredibly supportive.",
   },
@@ -28,7 +25,6 @@ const testimonials = [
     location: "Jalpaiguri",
     condition: "Chronic Back Pain",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
     review:
       "Years of back pain kept me from enjoying life. The comprehensive treatment plan here addressed not just symptoms but the root cause. I'm now pain-free and active again.",
   },
@@ -91,13 +87,8 @@ export default function Testimonials() {
 
               {/* Patient Info */}
               <div className="flex items-center gap-4">
-                <div className="relative w-14 h-14 rounded-full overflow-hidden">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="w-14 h-14 rounded-full bg-brand-blue/10 text-brand-blue/70 flex items-center justify-center">
+                  <User className="w-7 h-7" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-brand-blue">
